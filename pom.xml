@@ -5,7 +5,7 @@
     <artifactId>channel-api-client-java</artifactId>
     <packaging>jar</packaging>
     <name>channel-api-client-java</name>
-    <version>2.5.0</version>
+    <version>2.5.1</version>
     <url>https://github.com/channelengine/api-client-java</url>
     <description>ChannelEngine channel API Client for java</description>
     <scm>
