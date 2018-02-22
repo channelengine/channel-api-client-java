@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'com.channelengine.channel.apiclient'
-version = 'channel'
+version = '2.5.2'
 
 buildscript {
     repositories {
