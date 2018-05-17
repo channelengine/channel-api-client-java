@@ -1,0 +1,27 @@
+{
+	"gitUserId": "channelengine",
+	"gitRepoId": "channel-api-client-java",
+	"artifactId": "channel-api-client-java",
+
+	"artifactUrl": "https://github.com/channelengine/channel-api-client-java",
+	"artifactDescription": "ChannelEngine Channel API Client for java",
+
+	"scmConnection": "scm:git:git://github.com:channelengine/channel-api-client-java",
+	"scmDeveloperConnection": "scm:git:git://github.com:channelengine/channel-api-client-java",
+	"scmUrl": "https://github.com/channelengine/channel-api-client-java",
+
+	"developerName": "ChannelEngine",
+	"developerEmail": "support@channelengine.com",
+	"developerOrganization": "ChannelEngine",
+	"developerOrganizationUrl": "https://www.channelengine.com",
+
+	"licenseName": "proprietary",
+	"licenseUrl": "",
+
+	"groupId": "com.channelengine.channel.apiclient",
+    "invokerPackage": "com.channelengine.channel.apiclient",
+    "modelPackage": "com.channelengine.channel.apiclient.model",
+    "apiPackage": "com.channelengine.channel.apiclient.api",
+
+    "hideGenerationTimestamp": true
+}
