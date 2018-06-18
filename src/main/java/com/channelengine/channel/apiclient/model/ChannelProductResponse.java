@@ -197,10 +197,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get parentChannelProductNo
+   * The unique product reference used by the Channel for the parent product
    * @return parentChannelProductNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Channel for the parent product")
   public String getParentChannelProductNo() {
     return parentChannelProductNo;
   }
@@ -241,10 +241,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get name
+   * The name of the product
    * @return name
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The name of the product")
   public String getName() {
     return name;
   }
@@ -259,10 +259,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get description
+   * A description of the product
    * @return description
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "A description of the product")
   public String getDescription() {
     return description;
   }
@@ -277,10 +277,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get brand
+   * The brand of the product
    * @return brand
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The brand of the product")
   public String getBrand() {
     return brand;
   }
@@ -295,10 +295,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get size
+   * Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..
    * @return size
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..")
   public String getSize() {
     return size;
   }
@@ -313,10 +313,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get color
+   * Optional. The color of the product (variant).
    * @return color
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The color of the product (variant).")
   public String getColor() {
     return color;
   }
@@ -331,10 +331,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get ean
+   * The EAN of GTIN of the product
    * @return ean
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The EAN of GTIN of the product")
   public String getEan() {
     return ean;
   }
@@ -349,10 +349,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get manufacturerProductNumber
+   * The unique product reference used by the manufacturer/vendor of the product
    * @return manufacturerProductNumber
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the manufacturer/vendor of the product")
   public String getManufacturerProductNumber() {
     return manufacturerProductNumber;
   }
@@ -367,10 +367,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get stock
+   * The number of items in stock
    * @return stock
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The number of items in stock")
   public Integer getStock() {
     return stock;
   }
@@ -421,10 +421,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get purchasePrice
+   * Optional. The purchase price of the product. Useful for repricing.
    * @return purchasePrice
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The purchase price of the product. Useful for repricing.")
   public Double getPurchasePrice() {
     return purchasePrice;
   }
@@ -457,10 +457,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get shippingCost
+   * Shipping cost of the product.
    * @return shippingCost
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Shipping cost of the product.")
   public Double getShippingCost() {
     return shippingCost;
   }
@@ -529,10 +529,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl1
+   * Url to an additional image of product (1)
    * @return extraImageUrl1
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (1)")
   public String getExtraImageUrl1() {
     return extraImageUrl1;
   }
@@ -547,10 +547,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl2
+   * Url to an additional image of product (2)
    * @return extraImageUrl2
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (2)")
   public String getExtraImageUrl2() {
     return extraImageUrl2;
   }
@@ -565,10 +565,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl3
+   * Url to an additional image of product (3)
    * @return extraImageUrl3
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (3)")
   public String getExtraImageUrl3() {
     return extraImageUrl3;
   }
@@ -583,10 +583,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl4
+   * Url to an additional image of product (4)
    * @return extraImageUrl4
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (4)")
   public String getExtraImageUrl4() {
     return extraImageUrl4;
   }
@@ -601,10 +601,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl5
+   * Url to an additional image of product (5)
    * @return extraImageUrl5
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (5)")
   public String getExtraImageUrl5() {
     return extraImageUrl5;
   }
@@ -619,10 +619,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl6
+   * Url to an additional image of product (6)
    * @return extraImageUrl6
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (6)")
   public String getExtraImageUrl6() {
     return extraImageUrl6;
   }
@@ -637,10 +637,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl7
+   * Url to an additional image of product (7)
    * @return extraImageUrl7
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (7)")
   public String getExtraImageUrl7() {
     return extraImageUrl7;
   }
@@ -655,10 +655,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl8
+   * Url to an additional image of product (8)
    * @return extraImageUrl8
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (8)")
   public String getExtraImageUrl8() {
     return extraImageUrl8;
   }
@@ -673,10 +673,10 @@ public class ChannelProductResponse {
   }
 
    /**
-   * Get extraImageUrl9
+   * Url to an additional image of product (9)
    * @return extraImageUrl9
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (9)")
   public String getExtraImageUrl9() {
     return extraImageUrl9;
   }

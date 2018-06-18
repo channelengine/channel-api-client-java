@@ -41,10 +41,10 @@ public class ChannelCancellationLineResponse {
   }
 
    /**
-   * Get channelProductNo
+   * The unique product reference used by the Channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the Channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
@@ -59,10 +59,10 @@ public class ChannelCancellationLineResponse {
   }
 
    /**
-   * Get quantity
+   * Quantity of the product to cancel
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Quantity of the product to cancel")
   public Integer getQuantity() {
     return quantity;
   }

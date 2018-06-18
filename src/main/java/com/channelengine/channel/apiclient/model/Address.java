@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class Address {
   /**
-   * Gets or Sets gender
+   * Optional. The customer&#39;s gender
    */
   @JsonAdapter(GenderEnum.Adapter.class)
   public enum GenderEnum {
@@ -120,10 +120,10 @@ public class Address {
   }
 
    /**
-   * Get gender
+   * Optional. The customer&#39;s gender
    * @return gender
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The customer's gender")
   public GenderEnum getGender() {
     return gender;
   }
@@ -138,10 +138,10 @@ public class Address {
   }
 
    /**
-   * Get companyName
+   * Optional. Company addressed too.
    * @return companyName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. Company addressed too.")
   public String getCompanyName() {
     return companyName;
   }
@@ -156,10 +156,10 @@ public class Address {
   }
 
    /**
-   * Get firstName
+   * The first name of the customer
    * @return firstName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The first name of the customer")
   public String getFirstName() {
     return firstName;
   }
@@ -174,10 +174,10 @@ public class Address {
   }
 
    /**
-   * Get lastName
+   * The last name of the customer (includes the surname prefix [tussenvoegsel] like &#39;de&#39;, &#39;van&#39;, &#39;du&#39;)
    * @return lastName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The last name of the customer (includes the surname prefix [tussenvoegsel] like 'de', 'van', 'du')")
   public String getLastName() {
     return lastName;
   }
@@ -192,10 +192,10 @@ public class Address {
   }
 
    /**
-   * Get streetName
+   * The name of the street (without house number information)
    * @return streetName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The name of the street (without house number information)")
   public String getStreetName() {
     return streetName;
   }
@@ -210,10 +210,10 @@ public class Address {
   }
 
    /**
-   * Get houseNr
+   * The house number
    * @return houseNr
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The house number")
   public String getHouseNr() {
     return houseNr;
   }
@@ -228,10 +228,10 @@ public class Address {
   }
 
    /**
-   * Get houseNrAddition
+   * Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c
    * @return houseNrAddition
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c")
   public String getHouseNrAddition() {
     return houseNrAddition;
   }
@@ -246,10 +246,10 @@ public class Address {
   }
 
    /**
-   * Get zipCode
+   * The zip or postal code
    * @return zipCode
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The zip or postal code")
   public String getZipCode() {
     return zipCode;
   }
@@ -264,10 +264,10 @@ public class Address {
   }
 
    /**
-   * Get city
+   * The name of the city
    * @return city
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The name of the city")
   public String getCity() {
     return city;
   }

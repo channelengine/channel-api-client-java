@@ -53,10 +53,10 @@ public class ChannelShipmentResponse {
   }
 
    /**
-   * Get channelOrderNo
+   * The unique order reference used by the Channel
    * @return channelOrderNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the Channel")
   public String getChannelOrderNo() {
     return channelOrderNo;
   }
@@ -94,10 +94,10 @@ public class ChannelShipmentResponse {
   }
 
    /**
-   * Get trackTraceNo
+   * The unique shipping reference used by the Shipping carrier (track&amp;amp;trace number)
    * @return trackTraceNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique shipping reference used by the Shipping carrier (track&amp;trace number)")
   public String getTrackTraceNo() {
     return trackTraceNo;
   }
@@ -112,10 +112,10 @@ public class ChannelShipmentResponse {
   }
 
    /**
-   * Get trackTraceUrl
+   * A link to a page of the carrier where the customer can track the shipping of her package.
    * @return trackTraceUrl
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "A link to a page of the carrier where the customer can track the shipping of her package.")
   public String getTrackTraceUrl() {
     return trackTraceUrl;
   }
@@ -130,10 +130,10 @@ public class ChannelShipmentResponse {
   }
 
    /**
-   * Get method
+   * Shipment method (carrier)
    * @return method
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Shipment method (carrier)")
   public String getMethod() {
     return method;
   }

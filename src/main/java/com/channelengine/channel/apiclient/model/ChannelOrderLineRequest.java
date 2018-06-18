@@ -113,10 +113,10 @@ public class ChannelOrderLineRequest {
   }
 
    /**
-   * Get channelProductNo
+   * The unique order reference used by the channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
@@ -131,10 +131,10 @@ public class ChannelOrderLineRequest {
   }
 
    /**
-   * Get quantity
+   * The number of items of the product
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The number of items of the product")
   public Integer getQuantity() {
     return quantity;
   }

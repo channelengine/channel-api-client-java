@@ -44,10 +44,10 @@ public class ChannelOfferResponse {
   }
 
    /**
-   * Get channelProductNo
+   * The unique product reference used by the Channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }

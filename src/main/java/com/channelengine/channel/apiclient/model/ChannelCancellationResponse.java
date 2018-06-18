@@ -42,7 +42,7 @@ public class ChannelCancellationResponse {
   private String reason = null;
 
   /**
-   * Gets or Sets reasonCode
+   * Reason code for cancellation
    */
   @JsonAdapter(ReasonCodeEnum.Adapter.class)
   public enum ReasonCodeEnum {
@@ -105,10 +105,10 @@ public class ChannelCancellationResponse {
   }
 
    /**
-   * Get channelOrderNo
+   * The unique order reference used by the Channel
    * @return channelOrderNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the Channel")
   public String getChannelOrderNo() {
     return channelOrderNo;
   }
@@ -146,10 +146,10 @@ public class ChannelCancellationResponse {
   }
 
    /**
-   * Get reason
+   * Reason for cancellation (text)
    * @return reason
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Reason for cancellation (text)")
   public String getReason() {
     return reason;
   }
@@ -164,10 +164,10 @@ public class ChannelCancellationResponse {
   }
 
    /**
-   * Get reasonCode
+   * Reason code for cancellation
    * @return reasonCode
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Reason code for cancellation")
   public ReasonCodeEnum getReasonCode() {
     return reasonCode;
   }

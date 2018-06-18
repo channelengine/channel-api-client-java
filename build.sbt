@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
   settings(
     organization := "com.channelengine.channel.apiclient",
     name := "channel-api-client-java",
-    version := "2.6.2",
+    version := "2.6.5",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),
     javacOptions in compile ++= Seq("-Xlint:deprecation"),

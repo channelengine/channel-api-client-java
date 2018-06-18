@@ -125,10 +125,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get phone
+   * The customer&#39;s telephone number
    * @return phone
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The customer's telephone number")
   public String getPhone() {
     return phone;
   }
@@ -143,10 +143,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get email
+   * The customer&#39;s email
    * @return email
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The customer's email")
   public String getEmail() {
     return email;
   }
@@ -197,10 +197,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get paymentMethod
+   * The payment method used on the order
    * @return paymentMethod
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The payment method used on the order")
   public String getPaymentMethod() {
     return paymentMethod;
   }
@@ -233,10 +233,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get currencyCode
+   * The currency code for the amounts of the order
    * @return currencyCode
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The currency code for the amounts of the order")
   public String getCurrencyCode() {
     return currencyCode;
   }
@@ -251,10 +251,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get orderDate
+   * The date the order was done
    * @return orderDate
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The date the order was done")
   public OffsetDateTime getOrderDate() {
     return orderDate;
   }
@@ -269,10 +269,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get channelCustomerNo
+   * The unique customer reference used by the channel
    * @return channelCustomerNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique customer reference used by the channel")
   public String getChannelCustomerNo() {
     return channelCustomerNo;
   }
@@ -287,10 +287,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get billingAddress
+   * The billing or invoice address
    * @return billingAddress
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The billing or invoice address")
   public Address getBillingAddress() {
     return billingAddress;
   }
@@ -305,10 +305,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get shippingAddress
+   * The shipping address
    * @return shippingAddress
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The shipping address")
   public Address getShippingAddress() {
     return shippingAddress;
   }
@@ -331,10 +331,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * Get extraData
+   * Extra data on the order
    * @return extraData
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Extra data on the order")
   public Map<String, String> getExtraData() {
     return extraData;
   }

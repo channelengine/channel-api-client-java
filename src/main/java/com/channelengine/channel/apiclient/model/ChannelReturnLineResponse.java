@@ -41,10 +41,10 @@ public class ChannelReturnLineResponse {
   }
 
    /**
-   * Get channelProductNo
+   * The unique product reference used by the Channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the Channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
@@ -59,10 +59,10 @@ public class ChannelReturnLineResponse {
   }
 
    /**
-   * Get quantity
+   * Number of items of the product in this return
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Number of items of the product in this return")
   public Integer getQuantity() {
     return quantity;
   }

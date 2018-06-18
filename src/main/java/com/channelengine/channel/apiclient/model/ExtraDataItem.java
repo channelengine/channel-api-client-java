@@ -36,7 +36,7 @@ public class ExtraDataItem {
   private String value = null;
 
   /**
-   * Gets or Sets type
+   * Type of the extra data field
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
@@ -98,10 +98,10 @@ public class ExtraDataItem {
   }
 
    /**
-   * Get key
+   * Name of the extra data field
    * @return key
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Name of the extra data field")
   public String getKey() {
     return key;
   }
@@ -116,10 +116,10 @@ public class ExtraDataItem {
   }
 
    /**
-   * Get value
+   * Value of the extra data field
    * @return value
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Value of the extra data field")
   public String getValue() {
     return value;
   }
@@ -134,10 +134,10 @@ public class ExtraDataItem {
   }
 
    /**
-   * Get type
+   * Type of the extra data field
    * @return type
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Type of the extra data field")
   public TypeEnum getType() {
     return type;
   }
@@ -152,10 +152,10 @@ public class ExtraDataItem {
   }
 
    /**
-   * Get isPublic
+   * Add this field to the export of the product feed to the channel
    * @return isPublic
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Add this field to the export of the product feed to the channel")
   public Boolean isIsPublic() {
     return isPublic;
   }
