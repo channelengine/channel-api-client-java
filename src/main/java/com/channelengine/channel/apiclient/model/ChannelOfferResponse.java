@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * ChannelOfferResponse
@@ -33,7 +34,7 @@ public class ChannelOfferResponse {
   private String channelProductNo = null;
 
   @SerializedName("Price")
-  private Double price = null;
+  private BigDecimal price = null;
 
   @SerializedName("Stock")
   private Integer stock = null;
@@ -56,7 +57,7 @@ public class ChannelOfferResponse {
     this.channelProductNo = channelProductNo;
   }
 
-  public ChannelOfferResponse price(Double price) {
+  public ChannelOfferResponse price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -66,11 +67,11 @@ public class ChannelOfferResponse {
    * @return price
   **/
   @ApiModelProperty(value = "")
-  public Double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 

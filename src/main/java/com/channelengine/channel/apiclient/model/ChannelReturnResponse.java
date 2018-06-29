@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,10 +116,10 @@ public class ChannelReturnResponse {
   private String merchantComment = null;
 
   @SerializedName("RefundInclVat")
-  private Double refundInclVat = null;
+  private BigDecimal refundInclVat = null;
 
   @SerializedName("RefundExclVat")
-  private Double refundExclVat = null;
+  private BigDecimal refundExclVat = null;
 
   public ChannelReturnResponse channelReturnNo(String channelReturnNo) {
     this.channelReturnNo = channelReturnNo;
@@ -251,7 +252,7 @@ public class ChannelReturnResponse {
     this.merchantComment = merchantComment;
   }
 
-  public ChannelReturnResponse refundInclVat(Double refundInclVat) {
+  public ChannelReturnResponse refundInclVat(BigDecimal refundInclVat) {
     this.refundInclVat = refundInclVat;
     return this;
   }
@@ -261,15 +262,15 @@ public class ChannelReturnResponse {
    * @return refundInclVat
   **/
   @ApiModelProperty(value = "Refund amount incl. VAT")
-  public Double getRefundInclVat() {
+  public BigDecimal getRefundInclVat() {
     return refundInclVat;
   }
 
-  public void setRefundInclVat(Double refundInclVat) {
+  public void setRefundInclVat(BigDecimal refundInclVat) {
     this.refundInclVat = refundInclVat;
   }
 
-  public ChannelReturnResponse refundExclVat(Double refundExclVat) {
+  public ChannelReturnResponse refundExclVat(BigDecimal refundExclVat) {
     this.refundExclVat = refundExclVat;
     return this;
   }
@@ -279,11 +280,11 @@ public class ChannelReturnResponse {
    * @return refundExclVat
   **/
   @ApiModelProperty(value = "Refund amount excl. VAT")
-  public Double getRefundExclVat() {
+  public BigDecimal getRefundExclVat() {
     return refundExclVat;
   }
 
-  public void setRefundExclVat(Double refundExclVat) {
+  public void setRefundExclVat(BigDecimal refundExclVat) {
     this.refundExclVat = refundExclVat;
   }
 

@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,13 +69,13 @@ public class ChannelProductResponse {
   private Integer stock = null;
 
   @SerializedName("Price")
-  private Double price = null;
+  private BigDecimal price = null;
 
   @SerializedName("MSRP")
-  private Double MSRP = null;
+  private BigDecimal MSRP = null;
 
   @SerializedName("PurchasePrice")
-  private Double purchasePrice = null;
+  private BigDecimal purchasePrice = null;
 
   /**
    * The type of VAT which applies to this product.  See: http://ec.europa.eu/taxation_customs/taxation/vat/topics/rates_en.htm
@@ -129,7 +130,7 @@ public class ChannelProductResponse {
   private VatRateTypeEnum vatRateType = null;
 
   @SerializedName("ShippingCost")
-  private Double shippingCost = null;
+  private BigDecimal shippingCost = null;
 
   @SerializedName("ShippingTime")
   private String shippingTime = null;
@@ -379,7 +380,7 @@ public class ChannelProductResponse {
     this.stock = stock;
   }
 
-  public ChannelProductResponse price(Double price) {
+  public ChannelProductResponse price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -389,15 +390,15 @@ public class ChannelProductResponse {
    * @return price
   **/
   @ApiModelProperty(value = "Price, including VAT.")
-  public Double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
-  public ChannelProductResponse MSRP(Double MSRP) {
+  public ChannelProductResponse MSRP(BigDecimal MSRP) {
     this.MSRP = MSRP;
     return this;
   }
@@ -407,15 +408,15 @@ public class ChannelProductResponse {
    * @return MSRP
   **/
   @ApiModelProperty(value = "Manufacturer's suggested retail price")
-  public Double getMSRP() {
+  public BigDecimal getMSRP() {
     return MSRP;
   }
 
-  public void setMSRP(Double MSRP) {
+  public void setMSRP(BigDecimal MSRP) {
     this.MSRP = MSRP;
   }
 
-  public ChannelProductResponse purchasePrice(Double purchasePrice) {
+  public ChannelProductResponse purchasePrice(BigDecimal purchasePrice) {
     this.purchasePrice = purchasePrice;
     return this;
   }
@@ -425,11 +426,11 @@ public class ChannelProductResponse {
    * @return purchasePrice
   **/
   @ApiModelProperty(value = "Optional. The purchase price of the product. Useful for repricing.")
-  public Double getPurchasePrice() {
+  public BigDecimal getPurchasePrice() {
     return purchasePrice;
   }
 
-  public void setPurchasePrice(Double purchasePrice) {
+  public void setPurchasePrice(BigDecimal purchasePrice) {
     this.purchasePrice = purchasePrice;
   }
 
@@ -451,7 +452,7 @@ public class ChannelProductResponse {
     this.vatRateType = vatRateType;
   }
 
-  public ChannelProductResponse shippingCost(Double shippingCost) {
+  public ChannelProductResponse shippingCost(BigDecimal shippingCost) {
     this.shippingCost = shippingCost;
     return this;
   }
@@ -461,11 +462,11 @@ public class ChannelProductResponse {
    * @return shippingCost
   **/
   @ApiModelProperty(value = "Shipping cost of the product.")
-  public Double getShippingCost() {
+  public BigDecimal getShippingCost() {
     return shippingCost;
   }
 
-  public void setShippingCost(Double shippingCost) {
+  public void setShippingCost(BigDecimal shippingCost) {
     this.shippingCost = shippingCost;
   }
 

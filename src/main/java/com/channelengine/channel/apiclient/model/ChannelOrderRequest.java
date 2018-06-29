@@ -25,6 +25,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +59,7 @@ public class ChannelOrderRequest {
   private String paymentMethod = null;
 
   @SerializedName("ShippingCostsInclVat")
-  private Double shippingCostsInclVat = null;
+  private BigDecimal shippingCostsInclVat = null;
 
   @SerializedName("CurrencyCode")
   private String currencyCode = null;
@@ -209,7 +210,7 @@ public class ChannelOrderRequest {
     this.paymentMethod = paymentMethod;
   }
 
-  public ChannelOrderRequest shippingCostsInclVat(Double shippingCostsInclVat) {
+  public ChannelOrderRequest shippingCostsInclVat(BigDecimal shippingCostsInclVat) {
     this.shippingCostsInclVat = shippingCostsInclVat;
     return this;
   }
@@ -219,11 +220,11 @@ public class ChannelOrderRequest {
    * @return shippingCostsInclVat
   **/
   @ApiModelProperty(required = true, value = "The shipping fee including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getShippingCostsInclVat() {
+  public BigDecimal getShippingCostsInclVat() {
     return shippingCostsInclVat;
   }
 
-  public void setShippingCostsInclVat(Double shippingCostsInclVat) {
+  public void setShippingCostsInclVat(BigDecimal shippingCostsInclVat) {
     this.shippingCostsInclVat = shippingCostsInclVat;
   }
 

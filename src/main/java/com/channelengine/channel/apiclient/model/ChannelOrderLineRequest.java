@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * ChannelOrderLineRequest
@@ -39,13 +40,13 @@ public class ChannelOrderLineRequest {
   private Integer cancellationRequestedQuantity = null;
 
   @SerializedName("UnitPriceInclVat")
-  private Double unitPriceInclVat = null;
+  private BigDecimal unitPriceInclVat = null;
 
   @SerializedName("FeeFixed")
-  private Double feeFixed = null;
+  private BigDecimal feeFixed = null;
 
   @SerializedName("FeeRate")
-  private Double feeRate = null;
+  private BigDecimal feeRate = null;
 
   /**
    * The condition of the product, this can be used to indicate that a product is a second-hand product
@@ -161,7 +162,7 @@ public class ChannelOrderLineRequest {
     this.cancellationRequestedQuantity = cancellationRequestedQuantity;
   }
 
-  public ChannelOrderLineRequest unitPriceInclVat(Double unitPriceInclVat) {
+  public ChannelOrderLineRequest unitPriceInclVat(BigDecimal unitPriceInclVat) {
     this.unitPriceInclVat = unitPriceInclVat;
     return this;
   }
@@ -171,15 +172,15 @@ public class ChannelOrderLineRequest {
    * @return unitPriceInclVat
   **/
   @ApiModelProperty(required = true, value = "The value of a single unit of the ordered product including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getUnitPriceInclVat() {
+  public BigDecimal getUnitPriceInclVat() {
     return unitPriceInclVat;
   }
 
-  public void setUnitPriceInclVat(Double unitPriceInclVat) {
+  public void setUnitPriceInclVat(BigDecimal unitPriceInclVat) {
     this.unitPriceInclVat = unitPriceInclVat;
   }
 
-  public ChannelOrderLineRequest feeFixed(Double feeFixed) {
+  public ChannelOrderLineRequest feeFixed(BigDecimal feeFixed) {
     this.feeFixed = feeFixed;
     return this;
   }
@@ -189,15 +190,15 @@ public class ChannelOrderLineRequest {
    * @return feeFixed
   **/
   @ApiModelProperty(value = "A fixed fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable.")
-  public Double getFeeFixed() {
+  public BigDecimal getFeeFixed() {
     return feeFixed;
   }
 
-  public void setFeeFixed(Double feeFixed) {
+  public void setFeeFixed(BigDecimal feeFixed) {
     this.feeFixed = feeFixed;
   }
 
-  public ChannelOrderLineRequest feeRate(Double feeRate) {
+  public ChannelOrderLineRequest feeRate(BigDecimal feeRate) {
     this.feeRate = feeRate;
     return this;
   }
@@ -207,11 +208,11 @@ public class ChannelOrderLineRequest {
    * @return feeRate
   **/
   @ApiModelProperty(value = "A percentage fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable.")
-  public Double getFeeRate() {
+  public BigDecimal getFeeRate() {
     return feeRate;
   }
 
-  public void setFeeRate(Double feeRate) {
+  public void setFeeRate(BigDecimal feeRate) {
     this.feeRate = feeRate;
   }
 
