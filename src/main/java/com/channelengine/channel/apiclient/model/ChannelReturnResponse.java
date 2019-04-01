@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * ChannelReturnResponse
@@ -41,6 +42,12 @@ public class ChannelReturnResponse {
 
   @SerializedName("Lines")
   private List<ChannelReturnLineResponse> lines = new ArrayList<ChannelReturnLineResponse>();
+
+  @SerializedName("CreatedAt")
+  private OffsetDateTime createdAt = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
 
   @SerializedName("Id")
   private Integer id = null;
@@ -65,6 +72,8 @@ public class ChannelReturnResponse {
     WRONG_ADDRESS("WRONG_ADDRESS"),
     
     NOT_COLLECTED("NOT_COLLECTED"),
+    
+    WRONG_SIZE("WRONG_SIZE"),
     
     OTHER("OTHER");
 
@@ -178,6 +187,42 @@ public class ChannelReturnResponse {
 
   public void setLines(List<ChannelReturnLineResponse> lines) {
     this.lines = lines;
+  }
+
+  public ChannelReturnResponse createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the return was created in ChannelEngine
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The date at which the return was created in ChannelEngine")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public ChannelReturnResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date at which the return was last modified in ChannelEngine
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The date at which the return was last modified in ChannelEngine")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public ChannelReturnResponse id(Integer id) {
@@ -301,6 +346,8 @@ public class ChannelReturnResponse {
     return Objects.equals(this.channelReturnNo, channelReturnResponse.channelReturnNo) &&
         Objects.equals(this.channelOrderNo, channelReturnResponse.channelOrderNo) &&
         Objects.equals(this.lines, channelReturnResponse.lines) &&
+        Objects.equals(this.createdAt, channelReturnResponse.createdAt) &&
+        Objects.equals(this.updatedAt, channelReturnResponse.updatedAt) &&
         Objects.equals(this.id, channelReturnResponse.id) &&
         Objects.equals(this.reason, channelReturnResponse.reason) &&
         Objects.equals(this.customerComment, channelReturnResponse.customerComment) &&
@@ -311,7 +358,7 @@ public class ChannelReturnResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelReturnNo, channelOrderNo, lines, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
+    return Objects.hash(channelReturnNo, channelOrderNo, lines, createdAt, updatedAt, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
   }
 
 
@@ -323,6 +370,8 @@ public class ChannelReturnResponse {
     sb.append("    channelReturnNo: ").append(toIndentedString(channelReturnNo)).append("\n");
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    customerComment: ").append(toIndentedString(customerComment)).append("\n");

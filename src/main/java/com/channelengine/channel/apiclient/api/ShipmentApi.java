@@ -57,7 +57,7 @@ public class ShipmentApi {
 
     /**
      * Build call for shipmentIndex
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -79,7 +79,7 @@ public class ShipmentApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -109,11 +109,6 @@ public class ShipmentApi {
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call shipmentIndexValidateBeforeCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        // verify the required parameter 'createdSince' is set
-        if (createdSince == null) {
-            throw new ApiException("Missing the required parameter 'createdSince' when calling shipmentIndex(Async)");
-        }
-        
 
         com.squareup.okhttp.Call call = shipmentIndexCall(createdSince, progressListener, progressRequestListener);
         return call;
@@ -123,7 +118,7 @@ public class ShipmentApi {
     /**
      * Get Shipments
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return CollectionOfChannelShipmentResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -135,7 +130,7 @@ public class ShipmentApi {
     /**
      * Get Shipments
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return ApiResponse&lt;CollectionOfChannelShipmentResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -148,7 +143,7 @@ public class ShipmentApi {
     /**
      * Get Shipments (asynchronously)
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

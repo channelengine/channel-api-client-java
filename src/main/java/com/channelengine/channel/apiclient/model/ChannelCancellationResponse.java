@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * ChannelCancellationResponse
@@ -37,6 +38,12 @@ public class ChannelCancellationResponse {
 
   @SerializedName("Lines")
   private List<ChannelCancellationLineResponse> lines = new ArrayList<ChannelCancellationLineResponse>();
+
+  @SerializedName("CreatedAt")
+  private OffsetDateTime createdAt = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
 
   @SerializedName("Reason")
   private String reason = null;
@@ -140,6 +147,42 @@ public class ChannelCancellationResponse {
     this.lines = lines;
   }
 
+  public ChannelCancellationResponse createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the cancellation was created in ChannelEngine
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The date at which the cancellation was created in ChannelEngine")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public ChannelCancellationResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date at which the cancellation was last modified in ChannelEngine
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The date at which the cancellation was last modified in ChannelEngine")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public ChannelCancellationResponse reason(String reason) {
     this.reason = reason;
     return this;
@@ -188,13 +231,15 @@ public class ChannelCancellationResponse {
     ChannelCancellationResponse channelCancellationResponse = (ChannelCancellationResponse) o;
     return Objects.equals(this.channelOrderNo, channelCancellationResponse.channelOrderNo) &&
         Objects.equals(this.lines, channelCancellationResponse.lines) &&
+        Objects.equals(this.createdAt, channelCancellationResponse.createdAt) &&
+        Objects.equals(this.updatedAt, channelCancellationResponse.updatedAt) &&
         Objects.equals(this.reason, channelCancellationResponse.reason) &&
         Objects.equals(this.reasonCode, channelCancellationResponse.reasonCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelOrderNo, lines, reason, reasonCode);
+    return Objects.hash(channelOrderNo, lines, createdAt, updatedAt, reason, reasonCode);
   }
 
 
@@ -205,6 +250,8 @@ public class ChannelCancellationResponse {
     
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    reasonCode: ").append(toIndentedString(reasonCode)).append("\n");
     sb.append("}");

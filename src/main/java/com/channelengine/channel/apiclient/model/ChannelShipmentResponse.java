@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * ChannelShipmentResponse
@@ -37,6 +38,12 @@ public class ChannelShipmentResponse {
 
   @SerializedName("Lines")
   private List<ChannelShipmentLineResponse> lines = new ArrayList<ChannelShipmentLineResponse>();
+
+  @SerializedName("CreatedAt")
+  private OffsetDateTime createdAt = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
 
   @SerializedName("TrackTraceNo")
   private String trackTraceNo = null;
@@ -88,6 +95,42 @@ public class ChannelShipmentResponse {
     this.lines = lines;
   }
 
+  public ChannelShipmentResponse createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the shipment was created in ChannelEngine
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The date at which the shipment was created in ChannelEngine")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public ChannelShipmentResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date at which the shipment was last modified in ChannelEngine
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The date at which the shipment was last modified in ChannelEngine")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public ChannelShipmentResponse trackTraceNo(String trackTraceNo) {
     this.trackTraceNo = trackTraceNo;
     return this;
@@ -130,10 +173,10 @@ public class ChannelShipmentResponse {
   }
 
    /**
-   * Shipment method (carrier)
+   * Shipment method: the carrier used for shipping the package. E.g. DHL, postNL
    * @return method
   **/
-  @ApiModelProperty(value = "Shipment method (carrier)")
+  @ApiModelProperty(value = "Shipment method: the carrier used for shipping the package. E.g. DHL, postNL")
   public String getMethod() {
     return method;
   }
@@ -154,6 +197,8 @@ public class ChannelShipmentResponse {
     ChannelShipmentResponse channelShipmentResponse = (ChannelShipmentResponse) o;
     return Objects.equals(this.channelOrderNo, channelShipmentResponse.channelOrderNo) &&
         Objects.equals(this.lines, channelShipmentResponse.lines) &&
+        Objects.equals(this.createdAt, channelShipmentResponse.createdAt) &&
+        Objects.equals(this.updatedAt, channelShipmentResponse.updatedAt) &&
         Objects.equals(this.trackTraceNo, channelShipmentResponse.trackTraceNo) &&
         Objects.equals(this.trackTraceUrl, channelShipmentResponse.trackTraceUrl) &&
         Objects.equals(this.method, channelShipmentResponse.method);
@@ -161,7 +206,7 @@ public class ChannelShipmentResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelOrderNo, lines, trackTraceNo, trackTraceUrl, method);
+    return Objects.hash(channelOrderNo, lines, createdAt, updatedAt, trackTraceNo, trackTraceUrl, method);
   }
 
 
@@ -172,6 +217,8 @@ public class ChannelShipmentResponse {
     
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    trackTraceNo: ").append(toIndentedString(trackTraceNo)).append("\n");
     sb.append("    trackTraceUrl: ").append(toIndentedString(trackTraceUrl)).append("\n");
     sb.append("    method: ").append(toIndentedString(method)).append("\n");

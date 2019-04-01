@@ -79,13 +79,13 @@ public class ReturnApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "text/json", "application/x-www-form-urlencoded"
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -181,7 +181,7 @@ public class ReturnApi {
     }
     /**
      * Build call for returnGetDeclaredByMerchant
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -203,7 +203,7 @@ public class ReturnApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -233,11 +233,6 @@ public class ReturnApi {
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call returnGetDeclaredByMerchantValidateBeforeCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        // verify the required parameter 'createdSince' is set
-        if (createdSince == null) {
-            throw new ApiException("Missing the required parameter 'createdSince' when calling returnGetDeclaredByMerchant(Async)");
-        }
-        
 
         com.squareup.okhttp.Call call = returnGetDeclaredByMerchantCall(createdSince, progressListener, progressRequestListener);
         return call;
@@ -247,7 +242,7 @@ public class ReturnApi {
     /**
      * Get Returns
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return CollectionOfChannelReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -259,7 +254,7 @@ public class ReturnApi {
     /**
      * Get Returns
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return ApiResponse&lt;CollectionOfChannelReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -272,7 +267,7 @@ public class ReturnApi {
     /**
      * Get Returns (asynchronously)
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

@@ -35,6 +35,9 @@ public class ModelApiResponse {
   @SerializedName("StatusCode")
   private Integer statusCode = null;
 
+  @SerializedName("LogId")
+  private Integer logId = null;
+
   @SerializedName("Success")
   private Boolean success = null;
 
@@ -60,6 +63,24 @@ public class ModelApiResponse {
 
   public void setStatusCode(Integer statusCode) {
     this.statusCode = statusCode;
+  }
+
+  public ModelApiResponse logId(Integer logId) {
+    this.logId = logId;
+    return this;
+  }
+
+   /**
+   * Get logId
+   * @return logId
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getLogId() {
+    return logId;
+  }
+
+  public void setLogId(Integer logId) {
+    this.logId = logId;
   }
 
   public ModelApiResponse success(Boolean success) {
@@ -135,6 +156,7 @@ public class ModelApiResponse {
     }
     ModelApiResponse _apiResponse = (ModelApiResponse) o;
     return Objects.equals(this.statusCode, _apiResponse.statusCode) &&
+        Objects.equals(this.logId, _apiResponse.logId) &&
         Objects.equals(this.success, _apiResponse.success) &&
         Objects.equals(this.message, _apiResponse.message) &&
         Objects.equals(this.validationErrors, _apiResponse.validationErrors);
@@ -142,7 +164,7 @@ public class ModelApiResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(statusCode, success, message, validationErrors);
+    return Objects.hash(statusCode, logId, success, message, validationErrors);
   }
 
 
@@ -152,6 +174,7 @@ public class ModelApiResponse {
     sb.append("class ModelApiResponse {\n");
     
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
+    sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");

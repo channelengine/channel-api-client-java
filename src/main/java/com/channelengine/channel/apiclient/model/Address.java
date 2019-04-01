@@ -192,10 +192,10 @@ public class Address {
   }
 
    /**
-   * The name of the street (without house number information)
+   * The name of the street (without house number information)  This field might be empty if address validation is disabled in ChannelEngine
    * @return streetName
   **/
-  @ApiModelProperty(value = "The name of the street (without house number information)")
+  @ApiModelProperty(value = "The name of the street (without house number information)  This field might be empty if address validation is disabled in ChannelEngine")
   public String getStreetName() {
     return streetName;
   }
@@ -210,10 +210,10 @@ public class Address {
   }
 
    /**
-   * The house number
+   * The house number  This field might be empty if address validation is disabled in ChannelEngine
    * @return houseNr
   **/
-  @ApiModelProperty(value = "The house number")
+  @ApiModelProperty(value = "The house number  This field might be empty if address validation is disabled in ChannelEngine")
   public String getHouseNr() {
     return houseNr;
   }
@@ -228,10 +228,10 @@ public class Address {
   }
 
    /**
-   * Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c
+   * Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c  This field might be empty if address validation is disabled in ChannelEngine
    * @return houseNrAddition
   **/
-  @ApiModelProperty(value = "Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c")
+  @ApiModelProperty(value = "Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c  This field might be empty if address validation is disabled in ChannelEngine")
   public String getHouseNrAddition() {
     return houseNrAddition;
   }

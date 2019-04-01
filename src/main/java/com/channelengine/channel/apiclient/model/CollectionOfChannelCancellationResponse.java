@@ -49,6 +49,9 @@ public class CollectionOfChannelCancellationResponse {
   @SerializedName("StatusCode")
   private Integer statusCode = null;
 
+  @SerializedName("LogId")
+  private Integer logId = null;
+
   @SerializedName("Success")
   private Boolean success = null;
 
@@ -156,6 +159,24 @@ public class CollectionOfChannelCancellationResponse {
     this.statusCode = statusCode;
   }
 
+  public CollectionOfChannelCancellationResponse logId(Integer logId) {
+    this.logId = logId;
+    return this;
+  }
+
+   /**
+   * Get logId
+   * @return logId
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getLogId() {
+    return logId;
+  }
+
+  public void setLogId(Integer logId) {
+    this.logId = logId;
+  }
+
   public CollectionOfChannelCancellationResponse success(Boolean success) {
     this.success = success;
     return this;
@@ -233,6 +254,7 @@ public class CollectionOfChannelCancellationResponse {
         Objects.equals(this.totalCount, collectionOfChannelCancellationResponse.totalCount) &&
         Objects.equals(this.itemsPerPage, collectionOfChannelCancellationResponse.itemsPerPage) &&
         Objects.equals(this.statusCode, collectionOfChannelCancellationResponse.statusCode) &&
+        Objects.equals(this.logId, collectionOfChannelCancellationResponse.logId) &&
         Objects.equals(this.success, collectionOfChannelCancellationResponse.success) &&
         Objects.equals(this.message, collectionOfChannelCancellationResponse.message) &&
         Objects.equals(this.validationErrors, collectionOfChannelCancellationResponse.validationErrors);
@@ -240,7 +262,7 @@ public class CollectionOfChannelCancellationResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, count, totalCount, itemsPerPage, statusCode, success, message, validationErrors);
+    return Objects.hash(content, count, totalCount, itemsPerPage, statusCode, logId, success, message, validationErrors);
   }
 
 
@@ -254,6 +276,7 @@ public class CollectionOfChannelCancellationResponse {
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("    itemsPerPage: ").append(toIndentedString(itemsPerPage)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
+    sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");

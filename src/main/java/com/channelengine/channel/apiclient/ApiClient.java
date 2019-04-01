@@ -52,7 +52,7 @@ import com.channelengine.channel.apiclient.auth.OAuth;
 
 public class ApiClient {
 
-    private String basePath = "https://demo.channelengine.net/api";
+    private String basePath = "https://localhost/api";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -85,7 +85,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("Swagger-Codegen/2.6.7/java");
+        setUserAgent("Swagger-Codegen/2.7.0/java");
 
         // Setup authentications (key: authentication name, value: authentication).
         authentications = new HashMap<String, Authentication>();
@@ -106,7 +106,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g https://demo.channelengine.net/api
+     * @param basePath Base path of the URL (e.g https://localhost/api
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

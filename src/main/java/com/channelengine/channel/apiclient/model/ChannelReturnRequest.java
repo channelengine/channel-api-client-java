@@ -66,6 +66,8 @@ public class ChannelReturnRequest {
     
     NOT_COLLECTED("NOT_COLLECTED"),
     
+    WRONG_SIZE("WRONG_SIZE"),
+    
     OTHER("OTHER");
 
     private String value;

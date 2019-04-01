@@ -65,7 +65,9 @@ public class ChannelOrderLineRequest {
     
     USED_MEDIOCRE("USED_MEDIOCRE"),
     
-    UNKNOWN("UNKNOWN");
+    UNKNOWN("UNKNOWN"),
+    
+    USED_VERY_GOOD("USED_VERY_GOOD");
 
     private String value;
 
@@ -153,7 +155,7 @@ public class ChannelOrderLineRequest {
    * The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine
    * @return cancellationRequestedQuantity
   **/
-  @ApiModelProperty(required = true, value = "The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine")
+  @ApiModelProperty(value = "The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine")
   public Integer getCancellationRequestedQuantity() {
     return cancellationRequestedQuantity;
   }
