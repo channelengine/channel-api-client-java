@@ -201,7 +201,7 @@ public class ChannelOrderRequest {
    * The payment method used on the order
    * @return paymentMethod
   **/
-  @ApiModelProperty(required = true, value = "The payment method used on the order")
+  @ApiModelProperty(value = "The payment method used on the order")
   public String getPaymentMethod() {
     return paymentMethod;
   }
