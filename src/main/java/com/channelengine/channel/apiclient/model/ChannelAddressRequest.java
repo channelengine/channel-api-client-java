@@ -25,10 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Address
+ * ChannelAddressRequest
  */
 
-public class Address {
+public class ChannelAddressRequest {
   /**
    * Optional. The customer&#39;s gender
    */
@@ -114,7 +114,7 @@ public class Address {
   @SerializedName("Original")
   private String original = null;
 
-  public Address gender(GenderEnum gender) {
+  public ChannelAddressRequest gender(GenderEnum gender) {
     this.gender = gender;
     return this;
   }
@@ -132,7 +132,7 @@ public class Address {
     this.gender = gender;
   }
 
-  public Address companyName(String companyName) {
+  public ChannelAddressRequest companyName(String companyName) {
     this.companyName = companyName;
     return this;
   }
@@ -150,7 +150,7 @@ public class Address {
     this.companyName = companyName;
   }
 
-  public Address firstName(String firstName) {
+  public ChannelAddressRequest firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -168,7 +168,7 @@ public class Address {
     this.firstName = firstName;
   }
 
-  public Address lastName(String lastName) {
+  public ChannelAddressRequest lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -186,7 +186,7 @@ public class Address {
     this.lastName = lastName;
   }
 
-  public Address streetName(String streetName) {
+  public ChannelAddressRequest streetName(String streetName) {
     this.streetName = streetName;
     return this;
   }
@@ -204,7 +204,7 @@ public class Address {
     this.streetName = streetName;
   }
 
-  public Address houseNr(String houseNr) {
+  public ChannelAddressRequest houseNr(String houseNr) {
     this.houseNr = houseNr;
     return this;
   }
@@ -222,7 +222,7 @@ public class Address {
     this.houseNr = houseNr;
   }
 
-  public Address houseNrAddition(String houseNrAddition) {
+  public ChannelAddressRequest houseNrAddition(String houseNrAddition) {
     this.houseNrAddition = houseNrAddition;
     return this;
   }
@@ -240,7 +240,7 @@ public class Address {
     this.houseNrAddition = houseNrAddition;
   }
 
-  public Address zipCode(String zipCode) {
+  public ChannelAddressRequest zipCode(String zipCode) {
     this.zipCode = zipCode;
     return this;
   }
@@ -258,7 +258,7 @@ public class Address {
     this.zipCode = zipCode;
   }
 
-  public Address city(String city) {
+  public ChannelAddressRequest city(String city) {
     this.city = city;
     return this;
   }
@@ -276,7 +276,7 @@ public class Address {
     this.city = city;
   }
 
-  public Address region(String region) {
+  public ChannelAddressRequest region(String region) {
     this.region = region;
     return this;
   }
@@ -294,7 +294,7 @@ public class Address {
     this.region = region;
   }
 
-  public Address countryIso(String countryIso) {
+  public ChannelAddressRequest countryIso(String countryIso) {
     this.countryIso = countryIso;
     return this;
   }
@@ -312,7 +312,7 @@ public class Address {
     this.countryIso = countryIso;
   }
 
-  public Address original(String original) {
+  public ChannelAddressRequest original(String original) {
     this.original = original;
     return this;
   }
@@ -339,19 +339,19 @@ public class Address {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Address address = (Address) o;
-    return Objects.equals(this.gender, address.gender) &&
-        Objects.equals(this.companyName, address.companyName) &&
-        Objects.equals(this.firstName, address.firstName) &&
-        Objects.equals(this.lastName, address.lastName) &&
-        Objects.equals(this.streetName, address.streetName) &&
-        Objects.equals(this.houseNr, address.houseNr) &&
-        Objects.equals(this.houseNrAddition, address.houseNrAddition) &&
-        Objects.equals(this.zipCode, address.zipCode) &&
-        Objects.equals(this.city, address.city) &&
-        Objects.equals(this.region, address.region) &&
-        Objects.equals(this.countryIso, address.countryIso) &&
-        Objects.equals(this.original, address.original);
+    ChannelAddressRequest channelAddressRequest = (ChannelAddressRequest) o;
+    return Objects.equals(this.gender, channelAddressRequest.gender) &&
+        Objects.equals(this.companyName, channelAddressRequest.companyName) &&
+        Objects.equals(this.firstName, channelAddressRequest.firstName) &&
+        Objects.equals(this.lastName, channelAddressRequest.lastName) &&
+        Objects.equals(this.streetName, channelAddressRequest.streetName) &&
+        Objects.equals(this.houseNr, channelAddressRequest.houseNr) &&
+        Objects.equals(this.houseNrAddition, channelAddressRequest.houseNrAddition) &&
+        Objects.equals(this.zipCode, channelAddressRequest.zipCode) &&
+        Objects.equals(this.city, channelAddressRequest.city) &&
+        Objects.equals(this.region, channelAddressRequest.region) &&
+        Objects.equals(this.countryIso, channelAddressRequest.countryIso) &&
+        Objects.equals(this.original, channelAddressRequest.original);
   }
 
   @Override
@@ -363,7 +363,7 @@ public class Address {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+    sb.append("class ChannelAddressRequest {\n");
     
     sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
     sb.append("    companyName: ").append(toIndentedString(companyName)).append("\n");

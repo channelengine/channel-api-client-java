@@ -15,7 +15,7 @@ package com.channelengine.channel.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.channel.apiclient.model.ChannelReferencesRequest;
+import com.channelengine.channel.apiclient.model.ChannelProductReferencesRequest;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -33,7 +33,7 @@ import java.util.List;
 
 public class ChannelProcessedChangesRequest {
   @SerializedName("Created")
-  private List<ChannelReferencesRequest> created = null;
+  private List<ChannelProductReferencesRequest> created = null;
 
   @SerializedName("Updated")
   private List<String> updated = null;
@@ -41,14 +41,14 @@ public class ChannelProcessedChangesRequest {
   @SerializedName("Removed")
   private List<String> removed = null;
 
-  public ChannelProcessedChangesRequest created(List<ChannelReferencesRequest> created) {
+  public ChannelProcessedChangesRequest created(List<ChannelProductReferencesRequest> created) {
     this.created = created;
     return this;
   }
 
-  public ChannelProcessedChangesRequest addCreatedItem(ChannelReferencesRequest createdItem) {
+  public ChannelProcessedChangesRequest addCreatedItem(ChannelProductReferencesRequest createdItem) {
     if (this.created == null) {
-      this.created = new ArrayList<ChannelReferencesRequest>();
+      this.created = new ArrayList<ChannelProductReferencesRequest>();
     }
     this.created.add(createdItem);
     return this;
@@ -59,11 +59,11 @@ public class ChannelProcessedChangesRequest {
    * @return created
   **/
   @ApiModelProperty(value = "A collection of pairs of merchant and channel references  of the products which are successfully created. The channel references  are saved such that in subsequent calls these can be used instead of the   merchant references.")
-  public List<ChannelReferencesRequest> getCreated() {
+  public List<ChannelProductReferencesRequest> getCreated() {
     return created;
   }
 
-  public void setCreated(List<ChannelReferencesRequest> created) {
+  public void setCreated(List<ChannelProductReferencesRequest> created) {
     this.created = created;
   }
 

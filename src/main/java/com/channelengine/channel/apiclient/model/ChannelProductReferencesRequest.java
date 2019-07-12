@@ -25,17 +25,17 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * ChannelReferencesRequest
+ * ChannelProductReferencesRequest
  */
 
-public class ChannelReferencesRequest {
+public class ChannelProductReferencesRequest {
   @SerializedName("Id")
   private Integer id = null;
 
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
 
-  public ChannelReferencesRequest id(Integer id) {
+  public ChannelProductReferencesRequest id(Integer id) {
     this.id = id;
     return this;
   }
@@ -53,7 +53,7 @@ public class ChannelReferencesRequest {
     this.id = id;
   }
 
-  public ChannelReferencesRequest channelProductNo(String channelProductNo) {
+  public ChannelProductReferencesRequest channelProductNo(String channelProductNo) {
     this.channelProductNo = channelProductNo;
     return this;
   }
@@ -80,9 +80,9 @@ public class ChannelReferencesRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ChannelReferencesRequest channelReferencesRequest = (ChannelReferencesRequest) o;
-    return Objects.equals(this.id, channelReferencesRequest.id) &&
-        Objects.equals(this.channelProductNo, channelReferencesRequest.channelProductNo);
+    ChannelProductReferencesRequest channelProductReferencesRequest = (ChannelProductReferencesRequest) o;
+    return Objects.equals(this.id, channelProductReferencesRequest.id) &&
+        Objects.equals(this.channelProductNo, channelProductReferencesRequest.channelProductNo);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class ChannelReferencesRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ChannelReferencesRequest {\n");
+    sb.append("class ChannelProductReferencesRequest {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");

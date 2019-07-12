@@ -25,10 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * ExtraDataItem
+ * ChannelProductExtraDataItemResponse
  */
 
-public class ExtraDataItem {
+public class ChannelProductExtraDataItemResponse {
   @SerializedName("Key")
   private String key = null;
 
@@ -92,7 +92,7 @@ public class ExtraDataItem {
   @SerializedName("IsPublic")
   private Boolean isPublic = null;
 
-  public ExtraDataItem key(String key) {
+  public ChannelProductExtraDataItemResponse key(String key) {
     this.key = key;
     return this;
   }
@@ -110,7 +110,7 @@ public class ExtraDataItem {
     this.key = key;
   }
 
-  public ExtraDataItem value(String value) {
+  public ChannelProductExtraDataItemResponse value(String value) {
     this.value = value;
     return this;
   }
@@ -128,7 +128,7 @@ public class ExtraDataItem {
     this.value = value;
   }
 
-  public ExtraDataItem type(TypeEnum type) {
+  public ChannelProductExtraDataItemResponse type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -146,7 +146,7 @@ public class ExtraDataItem {
     this.type = type;
   }
 
-  public ExtraDataItem isPublic(Boolean isPublic) {
+  public ChannelProductExtraDataItemResponse isPublic(Boolean isPublic) {
     this.isPublic = isPublic;
     return this;
   }
@@ -173,11 +173,11 @@ public class ExtraDataItem {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ExtraDataItem extraDataItem = (ExtraDataItem) o;
-    return Objects.equals(this.key, extraDataItem.key) &&
-        Objects.equals(this.value, extraDataItem.value) &&
-        Objects.equals(this.type, extraDataItem.type) &&
-        Objects.equals(this.isPublic, extraDataItem.isPublic);
+    ChannelProductExtraDataItemResponse channelProductExtraDataItemResponse = (ChannelProductExtraDataItemResponse) o;
+    return Objects.equals(this.key, channelProductExtraDataItemResponse.key) &&
+        Objects.equals(this.value, channelProductExtraDataItemResponse.value) &&
+        Objects.equals(this.type, channelProductExtraDataItemResponse.type) &&
+        Objects.equals(this.isPublic, channelProductExtraDataItemResponse.isPublic);
   }
 
   @Override
@@ -189,7 +189,7 @@ public class ExtraDataItem {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ExtraDataItem {\n");
+    sb.append("class ChannelProductExtraDataItemResponse {\n");
     
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");

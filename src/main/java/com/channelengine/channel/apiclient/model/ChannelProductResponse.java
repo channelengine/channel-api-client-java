@@ -15,7 +15,7 @@ package com.channelengine.channel.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.channel.apiclient.model.ExtraDataItem;
+import com.channelengine.channel.apiclient.model.ChannelProductExtraDataItemResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -43,6 +43,9 @@ public class ChannelProductResponse {
 
   @SerializedName("MappedFields")
   private Map<String, String> mappedFields = null;
+
+  @SerializedName("ExtraData")
+  private List<ChannelProductExtraDataItemResponse> extraData = null;
 
   @SerializedName("Name")
   private String name = null;
@@ -171,9 +174,6 @@ public class ChannelProductResponse {
   @SerializedName("CategoryTrail")
   private String categoryTrail = null;
 
-  @SerializedName("ExtraData")
-  private List<ExtraDataItem> extraData = null;
-
   public ChannelProductResponse id(Integer id) {
     this.id = id;
     return this;
@@ -234,6 +234,32 @@ public class ChannelProductResponse {
 
   public void setMappedFields(Map<String, String> mappedFields) {
     this.mappedFields = mappedFields;
+  }
+
+  public ChannelProductResponse extraData(List<ChannelProductExtraDataItemResponse> extraData) {
+    this.extraData = extraData;
+    return this;
+  }
+
+  public ChannelProductResponse addExtraDataItem(ChannelProductExtraDataItemResponse extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new ArrayList<ChannelProductExtraDataItemResponse>();
+    }
+    this.extraData.add(extraDataItem);
+    return this;
+  }
+
+   /**
+   * An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
+   * @return extraData
+  **/
+  @ApiModelProperty(value = "An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.")
+  public List<ChannelProductExtraDataItemResponse> getExtraData() {
+    return extraData;
+  }
+
+  public void setExtraData(List<ChannelProductExtraDataItemResponse> extraData) {
+    this.extraData = extraData;
   }
 
   public ChannelProductResponse name(String name) {
@@ -704,32 +730,6 @@ public class ChannelProductResponse {
     this.categoryTrail = categoryTrail;
   }
 
-  public ChannelProductResponse extraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-    return this;
-  }
-
-  public ChannelProductResponse addExtraDataItem(ExtraDataItem extraDataItem) {
-    if (this.extraData == null) {
-      this.extraData = new ArrayList<ExtraDataItem>();
-    }
-    this.extraData.add(extraDataItem);
-    return this;
-  }
-
-   /**
-   * An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
-   * @return extraData
-  **/
-  @ApiModelProperty(value = "An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.")
-  public List<ExtraDataItem> getExtraData() {
-    return extraData;
-  }
-
-  public void setExtraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -743,6 +743,7 @@ public class ChannelProductResponse {
     return Objects.equals(this.id, channelProductResponse.id) &&
         Objects.equals(this.parentChannelProductNo, channelProductResponse.parentChannelProductNo) &&
         Objects.equals(this.mappedFields, channelProductResponse.mappedFields) &&
+        Objects.equals(this.extraData, channelProductResponse.extraData) &&
         Objects.equals(this.name, channelProductResponse.name) &&
         Objects.equals(this.description, channelProductResponse.description) &&
         Objects.equals(this.brand, channelProductResponse.brand) &&
@@ -768,13 +769,12 @@ public class ChannelProductResponse {
         Objects.equals(this.extraImageUrl7, channelProductResponse.extraImageUrl7) &&
         Objects.equals(this.extraImageUrl8, channelProductResponse.extraImageUrl8) &&
         Objects.equals(this.extraImageUrl9, channelProductResponse.extraImageUrl9) &&
-        Objects.equals(this.categoryTrail, channelProductResponse.categoryTrail) &&
-        Objects.equals(this.extraData, channelProductResponse.extraData);
+        Objects.equals(this.categoryTrail, channelProductResponse.categoryTrail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, parentChannelProductNo, mappedFields, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail, extraData);
+    return Objects.hash(id, parentChannelProductNo, mappedFields, extraData, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail);
   }
 
 
@@ -786,6 +786,7 @@ public class ChannelProductResponse {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    parentChannelProductNo: ").append(toIndentedString(parentChannelProductNo)).append("\n");
     sb.append("    mappedFields: ").append(toIndentedString(mappedFields)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
@@ -812,7 +813,6 @@ public class ChannelProductResponse {
     sb.append("    extraImageUrl8: ").append(toIndentedString(extraImageUrl8)).append("\n");
     sb.append("    extraImageUrl9: ").append(toIndentedString(extraImageUrl9)).append("\n");
     sb.append("    categoryTrail: ").append(toIndentedString(categoryTrail)).append("\n");
-    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

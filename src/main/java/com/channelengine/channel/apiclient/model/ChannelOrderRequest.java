@@ -15,7 +15,7 @@ package com.channelengine.channel.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.channel.apiclient.model.Address;
+import com.channelengine.channel.apiclient.model.ChannelAddressRequest;
 import com.channelengine.channel.apiclient.model.ChannelOrderLineRequest;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -37,8 +37,17 @@ import org.threeten.bp.OffsetDateTime;
  */
 
 public class ChannelOrderRequest {
+  @SerializedName("BillingAddress")
+  private ChannelAddressRequest billingAddress = null;
+
+  @SerializedName("ShippingAddress")
+  private ChannelAddressRequest shippingAddress = null;
+
   @SerializedName("ChannelOrderNo")
   private String channelOrderNo = null;
+
+  @SerializedName("IsBusinessOrder")
+  private Boolean isBusinessOrder = null;
 
   @SerializedName("Lines")
   private List<ChannelOrderLineRequest> lines = new ArrayList<ChannelOrderLineRequest>();
@@ -70,14 +79,44 @@ public class ChannelOrderRequest {
   @SerializedName("ChannelCustomerNo")
   private String channelCustomerNo = null;
 
-  @SerializedName("BillingAddress")
-  private Address billingAddress = null;
-
-  @SerializedName("ShippingAddress")
-  private Address shippingAddress = null;
-
   @SerializedName("ExtraData")
   private Map<String, String> extraData = null;
+
+  public ChannelOrderRequest billingAddress(ChannelAddressRequest billingAddress) {
+    this.billingAddress = billingAddress;
+    return this;
+  }
+
+   /**
+   * The billing or invoice address
+   * @return billingAddress
+  **/
+  @ApiModelProperty(required = true, value = "The billing or invoice address")
+  public ChannelAddressRequest getBillingAddress() {
+    return billingAddress;
+  }
+
+  public void setBillingAddress(ChannelAddressRequest billingAddress) {
+    this.billingAddress = billingAddress;
+  }
+
+  public ChannelOrderRequest shippingAddress(ChannelAddressRequest shippingAddress) {
+    this.shippingAddress = shippingAddress;
+    return this;
+  }
+
+   /**
+   * The shipping address
+   * @return shippingAddress
+  **/
+  @ApiModelProperty(required = true, value = "The shipping address")
+  public ChannelAddressRequest getShippingAddress() {
+    return shippingAddress;
+  }
+
+  public void setShippingAddress(ChannelAddressRequest shippingAddress) {
+    this.shippingAddress = shippingAddress;
+  }
 
   public ChannelOrderRequest channelOrderNo(String channelOrderNo) {
     this.channelOrderNo = channelOrderNo;
@@ -95,6 +134,24 @@ public class ChannelOrderRequest {
 
   public void setChannelOrderNo(String channelOrderNo) {
     this.channelOrderNo = channelOrderNo;
+  }
+
+  public ChannelOrderRequest isBusinessOrder(Boolean isBusinessOrder) {
+    this.isBusinessOrder = isBusinessOrder;
+    return this;
+  }
+
+   /**
+   * Optional. Is a business order (default value is false).  If not provided the VAT Number will be checked. If a VAT Number is found, IsBusinessOrder will be set to true.  No VAT will be calculated when set to true.
+   * @return isBusinessOrder
+  **/
+  @ApiModelProperty(value = "Optional. Is a business order (default value is false).  If not provided the VAT Number will be checked. If a VAT Number is found, IsBusinessOrder will be set to true.  No VAT will be calculated when set to true.")
+  public Boolean isIsBusinessOrder() {
+    return isBusinessOrder;
+  }
+
+  public void setIsBusinessOrder(Boolean isBusinessOrder) {
+    this.isBusinessOrder = isBusinessOrder;
   }
 
   public ChannelOrderRequest lines(List<ChannelOrderLineRequest> lines) {
@@ -282,42 +339,6 @@ public class ChannelOrderRequest {
     this.channelCustomerNo = channelCustomerNo;
   }
 
-  public ChannelOrderRequest billingAddress(Address billingAddress) {
-    this.billingAddress = billingAddress;
-    return this;
-  }
-
-   /**
-   * The billing or invoice address
-   * @return billingAddress
-  **/
-  @ApiModelProperty(required = true, value = "The billing or invoice address")
-  public Address getBillingAddress() {
-    return billingAddress;
-  }
-
-  public void setBillingAddress(Address billingAddress) {
-    this.billingAddress = billingAddress;
-  }
-
-  public ChannelOrderRequest shippingAddress(Address shippingAddress) {
-    this.shippingAddress = shippingAddress;
-    return this;
-  }
-
-   /**
-   * The shipping address
-   * @return shippingAddress
-  **/
-  @ApiModelProperty(required = true, value = "The shipping address")
-  public Address getShippingAddress() {
-    return shippingAddress;
-  }
-
-  public void setShippingAddress(Address shippingAddress) {
-    this.shippingAddress = shippingAddress;
-  }
-
   public ChannelOrderRequest extraData(Map<String, String> extraData) {
     this.extraData = extraData;
     return this;
@@ -354,7 +375,10 @@ public class ChannelOrderRequest {
       return false;
     }
     ChannelOrderRequest channelOrderRequest = (ChannelOrderRequest) o;
-    return Objects.equals(this.channelOrderNo, channelOrderRequest.channelOrderNo) &&
+    return Objects.equals(this.billingAddress, channelOrderRequest.billingAddress) &&
+        Objects.equals(this.shippingAddress, channelOrderRequest.shippingAddress) &&
+        Objects.equals(this.channelOrderNo, channelOrderRequest.channelOrderNo) &&
+        Objects.equals(this.isBusinessOrder, channelOrderRequest.isBusinessOrder) &&
         Objects.equals(this.lines, channelOrderRequest.lines) &&
         Objects.equals(this.phone, channelOrderRequest.phone) &&
         Objects.equals(this.email, channelOrderRequest.email) &&
@@ -365,14 +389,12 @@ public class ChannelOrderRequest {
         Objects.equals(this.currencyCode, channelOrderRequest.currencyCode) &&
         Objects.equals(this.orderDate, channelOrderRequest.orderDate) &&
         Objects.equals(this.channelCustomerNo, channelOrderRequest.channelCustomerNo) &&
-        Objects.equals(this.billingAddress, channelOrderRequest.billingAddress) &&
-        Objects.equals(this.shippingAddress, channelOrderRequest.shippingAddress) &&
         Objects.equals(this.extraData, channelOrderRequest.extraData);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelOrderNo, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, billingAddress, shippingAddress, extraData);
+    return Objects.hash(billingAddress, shippingAddress, channelOrderNo, isBusinessOrder, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
   }
 
 
@@ -381,7 +403,10 @@ public class ChannelOrderRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class ChannelOrderRequest {\n");
     
+    sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
+    sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
+    sb.append("    isBusinessOrder: ").append(toIndentedString(isBusinessOrder)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
@@ -392,8 +417,6 @@ public class ChannelOrderRequest {
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    orderDate: ").append(toIndentedString(orderDate)).append("\n");
     sb.append("    channelCustomerNo: ").append(toIndentedString(channelCustomerNo)).append("\n");
-    sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
-    sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
