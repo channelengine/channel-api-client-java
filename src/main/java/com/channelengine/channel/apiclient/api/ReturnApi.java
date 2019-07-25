@@ -181,13 +181,18 @@ public class ReturnApi {
     }
     /**
      * Build call for returnGetDeclaredByMerchant
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Return status(es) to filter on (optional)
+     * @param reasons Return reason(s) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call returnGetDeclaredByMerchantCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call returnGetDeclaredByMerchantCall(OffsetDateTime createdSince, List<String> statuses, List<String> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -197,6 +202,16 @@ public class ReturnApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (createdSince != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("createdSince", createdSince));
+        if (statuses != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "statuses", statuses));
+        if (reasons != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "reasons", reasons));
+        if (fromDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("fromDate", fromDate));
+        if (toDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("toDate", toDate));
+        if (page != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -231,10 +246,10 @@ public class ReturnApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call returnGetDeclaredByMerchantValidateBeforeCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call returnGetDeclaredByMerchantValidateBeforeCall(OffsetDateTime createdSince, List<String> statuses, List<String> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantCall(createdSince, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantCall(createdSince, statuses, reasons, fromDate, toDate, page, progressListener, progressRequestListener);
         return call;
 
     }
@@ -242,24 +257,34 @@ public class ReturnApi {
     /**
      * Get Returns
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Return status(es) to filter on (optional)
+     * @param reasons Return reason(s) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfChannelReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfChannelReturnResponse returnGetDeclaredByMerchant(OffsetDateTime createdSince) throws ApiException {
-        ApiResponse<CollectionOfChannelReturnResponse> resp = returnGetDeclaredByMerchantWithHttpInfo(createdSince);
+    public CollectionOfChannelReturnResponse returnGetDeclaredByMerchant(OffsetDateTime createdSince, List<String> statuses, List<String> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
+        ApiResponse<CollectionOfChannelReturnResponse> resp = returnGetDeclaredByMerchantWithHttpInfo(createdSince, statuses, reasons, fromDate, toDate, page);
         return resp.getData();
     }
 
     /**
      * Get Returns
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Return status(es) to filter on (optional)
+     * @param reasons Return reason(s) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfChannelReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfChannelReturnResponse> returnGetDeclaredByMerchantWithHttpInfo(OffsetDateTime createdSince) throws ApiException {
-        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantValidateBeforeCall(createdSince, null, null);
+    public ApiResponse<CollectionOfChannelReturnResponse> returnGetDeclaredByMerchantWithHttpInfo(OffsetDateTime createdSince, List<String> statuses, List<String> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
+        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantValidateBeforeCall(createdSince, statuses, reasons, fromDate, toDate, page, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfChannelReturnResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -267,12 +292,17 @@ public class ReturnApi {
     /**
      * Get Returns (asynchronously)
      * Get all returns created by the merchant. This call is supposed  to be used by channels. Merchants should use the &#39;GET /v2/returns/merchant&#39;  call.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Return status(es) to filter on (optional)
+     * @param reasons Return reason(s) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call returnGetDeclaredByMerchantAsync(OffsetDateTime createdSince, final ApiCallback<CollectionOfChannelReturnResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call returnGetDeclaredByMerchantAsync(OffsetDateTime createdSince, List<String> statuses, List<String> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback<CollectionOfChannelReturnResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -293,7 +323,7 @@ public class ReturnApi {
             };
         }
 
-        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantValidateBeforeCall(createdSince, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = returnGetDeclaredByMerchantValidateBeforeCall(createdSince, statuses, reasons, fromDate, toDate, page, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfChannelReturnResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
