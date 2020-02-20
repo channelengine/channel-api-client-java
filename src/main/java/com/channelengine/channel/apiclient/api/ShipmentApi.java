@@ -57,13 +57,18 @@ public class ShipmentApi {
 
     /**
      * Build call for shipmentIndex
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Shipment status(es) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param channelOrderNos Filter on the unique references (ids) as used by the channel. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call shipmentIndexCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call shipmentIndexCall(OffsetDateTime createdSince, List<String> statuses, OffsetDateTime fromDate, OffsetDateTime toDate, List<String> channelOrderNos, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -73,6 +78,16 @@ public class ShipmentApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (createdSince != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("createdSince", createdSince));
+        if (statuses != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "statuses", statuses));
+        if (fromDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("fromDate", fromDate));
+        if (toDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("toDate", toDate));
+        if (channelOrderNos != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "channelOrderNos", channelOrderNos));
+        if (page != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -107,10 +122,10 @@ public class ShipmentApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call shipmentIndexValidateBeforeCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call shipmentIndexValidateBeforeCall(OffsetDateTime createdSince, List<String> statuses, OffsetDateTime fromDate, OffsetDateTime toDate, List<String> channelOrderNos, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = shipmentIndexCall(createdSince, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = shipmentIndexCall(createdSince, statuses, fromDate, toDate, channelOrderNos, page, progressListener, progressRequestListener);
         return call;
 
     }
@@ -118,24 +133,34 @@ public class ShipmentApi {
     /**
      * Get Shipments
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Shipment status(es) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param channelOrderNos Filter on the unique references (ids) as used by the channel. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfChannelShipmentResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfChannelShipmentResponse shipmentIndex(OffsetDateTime createdSince) throws ApiException {
-        ApiResponse<CollectionOfChannelShipmentResponse> resp = shipmentIndexWithHttpInfo(createdSince);
+    public CollectionOfChannelShipmentResponse shipmentIndex(OffsetDateTime createdSince, List<String> statuses, OffsetDateTime fromDate, OffsetDateTime toDate, List<String> channelOrderNos, Integer page) throws ApiException {
+        ApiResponse<CollectionOfChannelShipmentResponse> resp = shipmentIndexWithHttpInfo(createdSince, statuses, fromDate, toDate, channelOrderNos, page);
         return resp.getData();
     }
 
     /**
      * Get Shipments
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Shipment status(es) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param channelOrderNos Filter on the unique references (ids) as used by the channel. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfChannelShipmentResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfChannelShipmentResponse> shipmentIndexWithHttpInfo(OffsetDateTime createdSince) throws ApiException {
-        com.squareup.okhttp.Call call = shipmentIndexValidateBeforeCall(createdSince, null, null);
+    public ApiResponse<CollectionOfChannelShipmentResponse> shipmentIndexWithHttpInfo(OffsetDateTime createdSince, List<String> statuses, OffsetDateTime fromDate, OffsetDateTime toDate, List<String> channelOrderNos, Integer page) throws ApiException {
+        com.squareup.okhttp.Call call = shipmentIndexValidateBeforeCall(createdSince, statuses, fromDate, toDate, channelOrderNos, page, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfChannelShipmentResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -143,12 +168,17 @@ public class ShipmentApi {
     /**
      * Get Shipments (asynchronously)
      * Gets all shipments created since the supplied date.
-     * @param createdSince  (optional)
+     * @param createdSince Deprecated, please use FromDate instead. (optional)
+     * @param statuses Shipment status(es) to filter on (optional)
+     * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param channelOrderNos Filter on the unique references (ids) as used by the channel. (optional)
+     * @param page The page to filter on. Starts at 1. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call shipmentIndexAsync(OffsetDateTime createdSince, final ApiCallback<CollectionOfChannelShipmentResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call shipmentIndexAsync(OffsetDateTime createdSince, List<String> statuses, OffsetDateTime fromDate, OffsetDateTime toDate, List<String> channelOrderNos, Integer page, final ApiCallback<CollectionOfChannelShipmentResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -169,7 +199,7 @@ public class ShipmentApi {
             };
         }
 
-        com.squareup.okhttp.Call call = shipmentIndexValidateBeforeCall(createdSince, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = shipmentIndexValidateBeforeCall(createdSince, statuses, fromDate, toDate, channelOrderNos, page, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfChannelShipmentResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

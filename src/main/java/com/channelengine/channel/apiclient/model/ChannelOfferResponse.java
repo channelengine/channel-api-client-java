@@ -33,6 +33,9 @@ public class ChannelOfferResponse {
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
 
+  @SerializedName("MerchantProductNo")
+  private String merchantProductNo = null;
+
   @SerializedName("Price")
   private BigDecimal price = null;
 
@@ -55,6 +58,24 @@ public class ChannelOfferResponse {
 
   public void setChannelProductNo(String channelProductNo) {
     this.channelProductNo = channelProductNo;
+  }
+
+  public ChannelOfferResponse merchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
+    return this;
+  }
+
+   /**
+   * Get merchantProductNo
+   * @return merchantProductNo
+  **/
+  @ApiModelProperty(value = "")
+  public String getMerchantProductNo() {
+    return merchantProductNo;
+  }
+
+  public void setMerchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
   }
 
   public ChannelOfferResponse price(BigDecimal price) {
@@ -104,13 +125,14 @@ public class ChannelOfferResponse {
     }
     ChannelOfferResponse channelOfferResponse = (ChannelOfferResponse) o;
     return Objects.equals(this.channelProductNo, channelOfferResponse.channelProductNo) &&
+        Objects.equals(this.merchantProductNo, channelOfferResponse.merchantProductNo) &&
         Objects.equals(this.price, channelOfferResponse.price) &&
         Objects.equals(this.stock, channelOfferResponse.stock);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelProductNo, price, stock);
+    return Objects.hash(channelProductNo, merchantProductNo, price, stock);
   }
 
 
@@ -120,6 +142,7 @@ public class ChannelOfferResponse {
     sb.append("class ChannelOfferResponse {\n");
     
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
+    sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    stock: ").append(toIndentedString(stock)).append("\n");
     sb.append("}");

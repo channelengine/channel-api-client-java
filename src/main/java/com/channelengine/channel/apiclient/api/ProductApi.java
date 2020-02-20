@@ -182,12 +182,13 @@ public class ProductApi {
     /**
      * Build call for productAcknowledgeOfferChanges
      * @param changes The channel references of the updated products (required)
+     * @param keyIsMpn If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call productAcknowledgeOfferChangesCall(List<String> changes, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call productAcknowledgeOfferChangesCall(List<String> changes, Boolean keyIsMpn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = changes;
 
         // create path and map variables
@@ -195,6 +196,8 @@ public class ProductApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (keyIsMpn != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("keyIsMpn", keyIsMpn));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -229,7 +232,7 @@ public class ProductApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call productAcknowledgeOfferChangesValidateBeforeCall(List<String> changes, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call productAcknowledgeOfferChangesValidateBeforeCall(List<String> changes, Boolean keyIsMpn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'changes' is set
         if (changes == null) {
@@ -237,45 +240,48 @@ public class ProductApi {
         }
         
 
-        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesCall(changes, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesCall(changes, keyIsMpn, progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
      * Acknowledge Product Offer Changes
-     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelReturnNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.
+     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelProductNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.  In advanced cases, the MerchantProductNo is used for this.   In that case, bool keyIsMpn should be true.
      * @param changes The channel references of the updated products (required)
+     * @param keyIsMpn If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
      * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelApiResponse productAcknowledgeOfferChanges(List<String> changes) throws ApiException {
-        ApiResponse<ModelApiResponse> resp = productAcknowledgeOfferChangesWithHttpInfo(changes);
+    public ModelApiResponse productAcknowledgeOfferChanges(List<String> changes, Boolean keyIsMpn) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = productAcknowledgeOfferChangesWithHttpInfo(changes, keyIsMpn);
         return resp.getData();
     }
 
     /**
      * Acknowledge Product Offer Changes
-     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelReturnNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.
+     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelProductNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.  In advanced cases, the MerchantProductNo is used for this.   In that case, bool keyIsMpn should be true.
      * @param changes The channel references of the updated products (required)
+     * @param keyIsMpn If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
      * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelApiResponse> productAcknowledgeOfferChangesWithHttpInfo(List<String> changes) throws ApiException {
-        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesValidateBeforeCall(changes, null, null);
+    public ApiResponse<ModelApiResponse> productAcknowledgeOfferChangesWithHttpInfo(List<String> changes, Boolean keyIsMpn) throws ApiException {
+        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesValidateBeforeCall(changes, keyIsMpn, null, null);
         Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
      * Acknowledge Product Offer Changes (asynchronously)
-     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelReturnNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.
+     * After a call to GET &#39;v2/products/offers&#39; this endpoint should be called with the  ChannelProductNo of the products that are successfully updated.  Please see &#39;v2/products/data&#39; and &#39;v2/products/data&#39; for documentation.  In advanced cases, the MerchantProductNo is used for this.   In that case, bool keyIsMpn should be true.
      * @param changes The channel references of the updated products (required)
+     * @param keyIsMpn If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call productAcknowledgeOfferChangesAsync(List<String> changes, final ApiCallback<ModelApiResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call productAcknowledgeOfferChangesAsync(List<String> changes, Boolean keyIsMpn, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -296,7 +302,7 @@ public class ProductApi {
             };
         }
 
-        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesValidateBeforeCall(changes, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = productAcknowledgeOfferChangesValidateBeforeCall(changes, keyIsMpn, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

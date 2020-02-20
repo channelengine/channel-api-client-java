@@ -49,6 +49,9 @@ public class ChannelOrderRequest {
   @SerializedName("IsBusinessOrder")
   private Boolean isBusinessOrder = null;
 
+  @SerializedName("KeyIsMerchantProductNo")
+  private Boolean keyIsMerchantProductNo = null;
+
   @SerializedName("Lines")
   private List<ChannelOrderLineRequest> lines = new ArrayList<ChannelOrderLineRequest>();
 
@@ -152,6 +155,24 @@ public class ChannelOrderRequest {
 
   public void setIsBusinessOrder(Boolean isBusinessOrder) {
     this.isBusinessOrder = isBusinessOrder;
+  }
+
+  public ChannelOrderRequest keyIsMerchantProductNo(Boolean keyIsMerchantProductNo) {
+    this.keyIsMerchantProductNo = keyIsMerchantProductNo;
+    return this;
+  }
+
+   /**
+   * Optional. Is the MPN used as key for the product (default value is false).
+   * @return keyIsMerchantProductNo
+  **/
+  @ApiModelProperty(value = "Optional. Is the MPN used as key for the product (default value is false).")
+  public Boolean isKeyIsMerchantProductNo() {
+    return keyIsMerchantProductNo;
+  }
+
+  public void setKeyIsMerchantProductNo(Boolean keyIsMerchantProductNo) {
+    this.keyIsMerchantProductNo = keyIsMerchantProductNo;
   }
 
   public ChannelOrderRequest lines(List<ChannelOrderLineRequest> lines) {
@@ -309,10 +330,10 @@ public class ChannelOrderRequest {
   }
 
    /**
-   * The date the order was done
+   * The date the order was created at the channel
    * @return orderDate
   **/
-  @ApiModelProperty(required = true, value = "The date the order was done")
+  @ApiModelProperty(required = true, value = "The date the order was created at the channel")
   public OffsetDateTime getOrderDate() {
     return orderDate;
   }
@@ -379,6 +400,7 @@ public class ChannelOrderRequest {
         Objects.equals(this.shippingAddress, channelOrderRequest.shippingAddress) &&
         Objects.equals(this.channelOrderNo, channelOrderRequest.channelOrderNo) &&
         Objects.equals(this.isBusinessOrder, channelOrderRequest.isBusinessOrder) &&
+        Objects.equals(this.keyIsMerchantProductNo, channelOrderRequest.keyIsMerchantProductNo) &&
         Objects.equals(this.lines, channelOrderRequest.lines) &&
         Objects.equals(this.phone, channelOrderRequest.phone) &&
         Objects.equals(this.email, channelOrderRequest.email) &&
@@ -394,7 +416,7 @@ public class ChannelOrderRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(billingAddress, shippingAddress, channelOrderNo, isBusinessOrder, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
+    return Objects.hash(billingAddress, shippingAddress, channelOrderNo, isBusinessOrder, keyIsMerchantProductNo, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
   }
 
 
@@ -407,6 +429,7 @@ public class ChannelOrderRequest {
     sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    isBusinessOrder: ").append(toIndentedString(isBusinessOrder)).append("\n");
+    sb.append("    keyIsMerchantProductNo: ").append(toIndentedString(keyIsMerchantProductNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

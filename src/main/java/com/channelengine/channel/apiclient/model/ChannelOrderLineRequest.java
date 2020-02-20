@@ -33,6 +33,9 @@ public class ChannelOrderLineRequest {
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
 
+  @SerializedName("MerchantProductNo")
+  private String merchantProductNo = null;
+
   @SerializedName("Quantity")
   private Integer quantity = null;
 
@@ -116,16 +119,34 @@ public class ChannelOrderLineRequest {
   }
 
    /**
-   * The unique order reference used by the channel
+   * The unique product reference used by the channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "The unique order reference used by the channel")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
 
   public void setChannelProductNo(String channelProductNo) {
     this.channelProductNo = channelProductNo;
+  }
+
+  public ChannelOrderLineRequest merchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
+    return this;
+  }
+
+   /**
+   * The unique product reference used by the merchant
+   * @return merchantProductNo
+  **/
+  @ApiModelProperty(value = "The unique product reference used by the merchant")
+  public String getMerchantProductNo() {
+    return merchantProductNo;
+  }
+
+  public void setMerchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
   }
 
   public ChannelOrderLineRequest quantity(Integer quantity) {
@@ -247,6 +268,7 @@ public class ChannelOrderLineRequest {
     }
     ChannelOrderLineRequest channelOrderLineRequest = (ChannelOrderLineRequest) o;
     return Objects.equals(this.channelProductNo, channelOrderLineRequest.channelProductNo) &&
+        Objects.equals(this.merchantProductNo, channelOrderLineRequest.merchantProductNo) &&
         Objects.equals(this.quantity, channelOrderLineRequest.quantity) &&
         Objects.equals(this.cancellationRequestedQuantity, channelOrderLineRequest.cancellationRequestedQuantity) &&
         Objects.equals(this.unitPriceInclVat, channelOrderLineRequest.unitPriceInclVat) &&
@@ -257,7 +279,7 @@ public class ChannelOrderLineRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
+    return Objects.hash(channelProductNo, merchantProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
   }
 
 
@@ -267,6 +289,7 @@ public class ChannelOrderLineRequest {
     sb.append("class ChannelOrderLineRequest {\n");
     
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
+    sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    cancellationRequestedQuantity: ").append(toIndentedString(cancellationRequestedQuantity)).append("\n");
     sb.append("    unitPriceInclVat: ").append(toIndentedString(unitPriceInclVat)).append("\n");
