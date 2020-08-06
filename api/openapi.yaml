@@ -1,0 +1,2276 @@
+openapi: 3.0.1
+info:
+  description: ChannelEngine API for channels
+  title: ChannelEngine Channel API
+  version: 2.9.3
+servers:
+- url: https://demo.channelengine.net/api
+security:
+- apiKey: []
+paths:
+  /v2/cancellations:
+    get:
+      description: Gets all cancellations created since the supplied date.
+      operationId: CancellationIndex
+      parameters:
+      - explode: true
+        in: query
+        name: createdSince
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfChannelCancellationResponse'
+          description: Success
+      summary: Get Cancellations.
+      tags:
+      - Cancellation
+      x-accepts: application/json
+  /v2/orders:
+    post:
+      description: Create a new order in ChannelEngine.
+      operationId: OrderCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ChannelOrderRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelOrderRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChannelOrderRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Create Order.
+      tags:
+      - Order
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/orders/{merchantOrderNo}/invoice:
+    get:
+      description: Generates the ChannelEngine VAT invoice for this order in PDF.
+      operationId: OrderInvoice
+      parameters:
+      - description: The unique order reference as used by the merchant.
+        explode: false
+        in: path
+        name: merchantOrderNo
+        required: true
+        schema:
+          description: The unique order reference as used by the merchant.
+          nullable: true
+          type: string
+        style: simple
+      - description: Generate the invoice in the billing address' country's language.
+        explode: true
+        in: query
+        name: useCustomerCulture
+        required: false
+        schema:
+          default: false
+          description: Generate the invoice in the billing address' country's language.
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/pdf:
+              schema:
+                format: byte
+                type: file
+          description: Invoice PDF
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Download Invoice.
+      tags:
+      - Order
+      x-accepts: application/json
+  /v2/orders/{merchantOrderNo}/packingslip:
+    get:
+      description: Generates the ChannelEngine packing slip for this order in PDF.
+      operationId: OrderPackingSlip
+      parameters:
+      - description: The unique order reference as used by the merchant.
+        explode: false
+        in: path
+        name: merchantOrderNo
+        required: true
+        schema:
+          description: The unique order reference as used by the merchant.
+          nullable: true
+          type: string
+        style: simple
+      - description: Generate the invoice in the billing address' country's language.
+        explode: true
+        in: query
+        name: useCustomerCulture
+        required: false
+        schema:
+          default: false
+          description: Generate the invoice in the billing address' country's language.
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/pdf:
+              schema:
+                format: byte
+                type: file
+          description: Packing Slip PDF
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Download Packing Slip.
+      tags:
+      - Order
+      x-accepts: application/json
+  /v2/products/data:
+    get:
+      description: Get all products which have changes since the post http call to
+        POST 'v2/products/data'.<br />The response contains the products which should
+        be created, updated or removed from the channel.<br />After the products have
+        been received and processed successfully 'v2/products/data' should<br />be
+        called with the merchant references of the products which have been processed
+        (see POST 'v2/products/data').<br />ChannelEnginewill save this information
+        to make sure that the next call to GET 'v2/products/data' only returns the<br
+        />products that really have changes (and therefore should be created, updated
+        or deleted).<br />A channel willing to integrate with channelengine should
+        therefore only do the following things:<br /> 1. Periodically poll 'v2/products/data'
+        for changes.<br /> 2. If any products are returned, save, update or remove
+        these products.<br /> 3. Send the merchant references of the products that
+        have succesfully been processed<br /> in step 2 to POST 'v2/products/data'.<br
+        /> <br />These three simple steps will make sure that the products on the
+        channel will be synchronized<br />with the products on ChannelEngine. ChannelEngine
+        will use the API key to determine the customer<br />whose products should
+        be returned. Note that child products are only returned if their parent product<br
+        />has been acknowledged in a previous transaction. This way ChannelEngine
+        knows the value of<br />'ChannelParentReference'.
+      operationId: ProductGetDataChanges
+      parameters:
+      - description: Optional - limit the amount of products returned for each field<br
+          /> (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number.
+        explode: true
+        in: query
+        name: maxCount
+        required: false
+        schema:
+          description: "Optional - limit the amount of products returned for each\
+            \ field\r\n             (ToBeCreated, ToBeUpdated, ToBeRemoved) to this\
+            \ number."
+          format: int32
+          nullable: true
+          type: integer
+        style: form
+      - description: Optional - strips html by default on all fields
+        explode: true
+        in: query
+        name: stripHtml
+        required: false
+        schema:
+          default: true
+          description: Optional - strips html by default on all fields
+          nullable: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfChannelProductChangesResponse'
+          description: Success
+      summary: Get Product Data Changes.
+      tags:
+      - Product
+      x-accepts: application/json
+    post:
+      description: This endpoint should be called after a call to GET 'v2/products/data'.
+        After a call to<br />this endpoint ChannelEngine 'knows' which products are
+        known to the channel (and the last<br />time they have been updated) and is
+        therefore able to only return the products<br />that really have changed since
+        the last call to POST 'v2/products/data'.<br />The supplied ChannelReturnNo
+        will be saved<br />in our database and is supposed to be unique, the 'Updated'
+        and 'Removed'<br />fields consist of ChannelReferences which are sent in a
+        previous call<br />within the field 'Created'.
+      operationId: ProductAcknowledgeDataChanges
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ChannelProcessedChangesRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelProcessedChangesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChannelProcessedChangesRequest'
+        description: The merchant references of the products which have been<br />
+          successfully created, updated or deleted (after a call to 'GetDataChanges').
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Acknowledge Product Data Changes.
+      tags:
+      - Product
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/products/offers:
+    get:
+      description: GET 'v2/products/offers' and POST 'v2/products/offers' closely
+        resemble GET 'v2/products/data' and POST 'v2/products/data'. See the 'v2/products/data'<br
+        />endpoints for documentation. The difference between both endpoints is that
+        'v2/products/offers' only returns Price and Stock updates and can (and should)<br
+        />therefore be called more often to keep this information (which might change
+        frequently) up to date.
+      operationId: ProductGetOfferChanges
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfChannelOfferResponse'
+          description: Success
+      summary: Get Product Offer Changes.
+      tags:
+      - Product
+      x-accepts: application/json
+    post:
+      description: After a call to GET 'v2/products/offers' this endpoint should be
+        called with the<br />ChannelProductNo of the products that are successfully
+        updated.<br />Please see 'v2/products/data' and 'v2/products/data' for documentation.<br
+        />In advanced cases, the MerchantProductNo is used for this.<br />In that
+        case, bool keyIsMpn should be true.
+      operationId: ProductAcknowledgeOfferChanges
+      parameters:
+      - description: If set to true, changes has to be a list of merchant references
+          instead of channel references.
+        explode: true
+        in: query
+        name: keyIsMpn
+        required: false
+        schema:
+          default: false
+          description: If set to true, changes has to be a list of merchant references
+            instead of channel references.
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              description: The channel references of the updated products.
+              items:
+                type: string
+              nullable: true
+              type: array
+          application/json:
+            schema:
+              description: The channel references of the updated products.
+              items:
+                type: string
+              nullable: true
+              type: array
+          application/*+json:
+            schema:
+              description: The channel references of the updated products.
+              items:
+                type: string
+              nullable: true
+              type: array
+        description: The channel references of the updated products.
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+      summary: Acknowledge Product Offer Changes.
+      tags:
+      - Product
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/returns/channel:
+    get:
+      description: Get all returns created by the merchant. This call is supposed<br
+        />to be used by channels. Merchants should use the 'GET /v2/returns/merchant'<br
+        />call.
+      operationId: ReturnGetDeclaredByMerchant
+      parameters:
+      - description: Deprecated, please use FromDate instead.
+        explode: true
+        in: query
+        name: createdSince
+        required: false
+        schema:
+          deprecated: true
+          description: Deprecated, please use FromDate instead.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Return status(es) to filter on.
+        explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          description: Return status(es) to filter on.
+          items:
+            $ref: '#/components/schemas/ReturnStatus'
+          nullable: true
+          type: array
+        style: form
+      - description: Return reason(s) to filter on.
+        explode: true
+        in: query
+        name: reasons
+        required: false
+        schema:
+          description: Return reason(s) to filter on.
+          items:
+            $ref: '#/components/schemas/ReturnReason'
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on the creation date, starting from this date. This date
+          is inclusive.
+        explode: true
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          description: Filter on the creation date, starting from this date. This
+            date is inclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Filter on the creation date, until this date. This date is exclusive.
+        explode: true
+        in: query
+        name: toDate
+        required: false
+        schema:
+          description: Filter on the creation date, until this date. This date is
+            exclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          description: The page to filter on. Starts at 1.
+          format: int32
+          nullable: true
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfChannelReturnResponse'
+          description: Success
+      summary: Get Returns.
+      tags:
+      - Return
+      x-accepts: application/json
+    post:
+      description: Mark (part of) an order as returned by the customer.
+      operationId: ReturnDeclareForChannel
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ChannelReturnRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelReturnRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChannelReturnRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Create Return.
+      tags:
+      - Return
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/shipments:
+    get:
+      description: Gets all shipments created since the supplied date.
+      operationId: ShipmentIndex
+      parameters:
+      - description: Deprecated, please use FromDate instead.
+        explode: true
+        in: query
+        name: createdSince
+        required: false
+        schema:
+          deprecated: true
+          description: Deprecated, please use FromDate instead.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Shipment status(es) to filter on.
+        explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          description: Shipment status(es) to filter on.
+          items:
+            $ref: '#/components/schemas/ShipmentStatus'
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on the creation date, starting from this date. This date
+          is inclusive.
+        explode: true
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          description: Filter on the creation date, starting from this date. This
+            date is inclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Filter on the creation date, until this date. This date is exclusive.
+        explode: true
+        in: query
+        name: toDate
+        required: false
+        schema:
+          description: Filter on the creation date, until this date. This date is
+            exclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Filter on the unique references (ids) as used by the channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on the unique references (ids) as used by the channel.
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          description: The page to filter on. Starts at 1.
+          format: int32
+          nullable: true
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfChannelShipmentResponse'
+          description: Success
+      summary: Get Shipments.
+      tags:
+      - Shipment
+      x-accepts: application/json
+components:
+  schemas:
+    ChannelCancellationLineResponse:
+      additionalProperties: false
+      example:
+        Quantity: 0
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant.
+          nullable: true
+          type: string
+        Quantity:
+          description: Quantity of the product to cancel.
+          format: int32
+          type: integer
+      required:
+      - ChannelProductNo
+      - Quantity
+      type: object
+    MancoReason:
+      enum:
+      - NOT_IN_STOCK
+      - DAMAGED
+      - INCOMPLETE
+      - CLIENT_CANCELLED
+      - INVALID_ADDRESS
+      - OTHER
+      type: string
+    ChannelCancellationResponse:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        Reason: Reason
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/ChannelCancellationLineResponse'
+          type: array
+        CreatedAt:
+          description: The date at which the cancellation was created in ChannelEngine.
+          format: date-time
+          type: string
+        UpdatedAt:
+          description: The date at which the cancellation was last modified in ChannelEngine.
+          format: date-time
+          type: string
+        Reason:
+          description: Reason for cancellation (text).
+          nullable: true
+          type: string
+        ReasonCode:
+          $ref: '#/components/schemas/MancoReason'
+      required:
+      - ChannelOrderNo
+      - Lines
+      type: object
+    CollectionOfChannelCancellationResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 1
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - ChannelOrderNo: ChannelOrderNo
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Reason: Reason
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        - ChannelOrderNo: ChannelOrderNo
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Reason: Reason
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        ItemsPerPage: 5
+        Count: 6
+        StatusCode: 5
+        LogId: 2
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/ChannelCancellationResponse'
+          nullable: true
+          type: array
+        Count:
+          description: The number of items in the current response.
+          format: int32
+          type: integer
+        TotalCount:
+          description: The total number of items.
+          format: int32
+          type: integer
+        ItemsPerPage:
+          description: The number of items per page.
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    Gender:
+      enum:
+      - MALE
+      - FEMALE
+      - NOT_APPLICABLE
+      type: string
+    ChannelAddressRequest:
+      additionalProperties: false
+      example:
+        StreetName: StreetName
+        CompanyName: CompanyName
+        HouseNrAddition: HouseNrAddition
+        CountryIso: CountryIso
+        HouseNr: HouseNr
+        FirstName: FirstName
+        ZipCode: ZipCode
+        Region: Region
+        LastName: LastName
+        City: City
+        Original: Original
+      properties:
+        Gender:
+          $ref: '#/components/schemas/Gender'
+        CompanyName:
+          description: Optional. Company addressed too.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        FirstName:
+          description: The first name of the customer.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        LastName:
+          description: The last name of the customer (includes the surname prefix
+            [tussenvoegsel] like 'de', 'van', 'du').
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        StreetName:
+          description: "The name of the street (without house number information)\r\
+            \nThis field might be empty if address validation is disabled in ChannelEngine."
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        HouseNr:
+          description: "The house number\r\nThis field might be empty if address validation\
+            \ is disabled in ChannelEngine."
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        HouseNrAddition:
+          description: "Optional. Addition to the house number\r\nIf the address is:\
+            \ Groenhazengracht 2c, the address will be:\r\nStreetName: Groenhazengracht\r\
+            \nHouseNo: 2\r\nHouseNrAddition: c\r\nThis field might be empty if address\
+            \ validation is disabled in ChannelEngine."
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        ZipCode:
+          description: The zip or postal code.
+          nullable: true
+          type: string
+        City:
+          description: The name of the city.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        Region:
+          description: Optional. State/province/region.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        CountryIso:
+          description: 'For example: NL, BE, FR.'
+          maxLength: 2
+          minLength: 0
+          nullable: true
+          type: string
+        Original:
+          description: "Optional. The address as a single string: use in case the\
+            \ address lines are entered\r\nas single lines and later parsed into street,\
+            \ house number and house number addition."
+          maxLength: 256
+          minLength: 0
+          nullable: true
+          type: string
+      type: object
+    Condition:
+      enum:
+      - NEW
+      - NEW_REFURBISHED
+      - USED_AS_NEW
+      - USED_GOOD
+      - USED_REASONABLE
+      - USED_MEDIOCRE
+      - UNKNOWN
+      - USED_VERY_GOOD
+      type: string
+    ChannelOrderLineRequest:
+      additionalProperties: false
+      example:
+        UnitPriceInclVat: 1.4658129805029452
+        FeeFixed: 5.962133916683182
+        FeeRate: 5.637376656633329
+        Quantity: 0
+        CancellationRequestedQuantity: 6
+        ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the channel.
+          maxLength: 50
+          minLength: 0
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the merchant.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        Quantity:
+          description: The number of items of the product.
+          format: int32
+          type: integer
+        CancellationRequestedQuantity:
+          description: "The number of items for which cancellation was requested by\
+            \ the customer.\r\nSome channels allow a customer to cancel an order until\
+            \ it has been shipped.\r\nWhen an order has already been acknowledged\
+            \ in ChannelEngine, it can only be cancelled by creating a cancellation.\r\
+            \nUse this field to check whether it is still possible to cancel the order.\
+            \ If this is the case, submit a cancellation to ChannelEngine."
+          format: int32
+          type: integer
+        UnitPriceInclVat:
+          description: "The value of a single unit of the ordered product including\
+            \ VAT\r\n(in the shop's base currency calculated using the exchange rate\
+            \ at the time of ordering)."
+          format: decimal
+          type: number
+        FeeFixed:
+          description: "A fixed fee that is charged by the Channel for this orderline.\r\
+            \nThis fee rate is based on the currency of the Channel\r\nThis field\
+            \ is optional, send 0 if not applicable."
+          format: decimal
+          type: number
+        FeeRate:
+          description: "A percentage fee that is charged by the Channel for this orderline.\r\
+            \nThis field is optional, send 0 if not applicable."
+          format: decimal
+          type: number
+        Condition:
+          $ref: '#/components/schemas/Condition'
+        ExpectedDeliveryDate:
+          description: Expected delivery date from channels, empty if channels not
+            support this value
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - ChannelProductNo
+      - Quantity
+      - UnitPriceInclVat
+      type: object
+    ChannelOrderRequest:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        Email: Email
+        VatNo: VatNo
+        KeyIsMerchantProductNo: true
+        ExtraData:
+          key: ExtraData
+        OrderDate: 2000-01-23T04:56:07.000+00:00
+        BillingAddress:
+          StreetName: StreetName
+          CompanyName: CompanyName
+          HouseNrAddition: HouseNrAddition
+          CountryIso: CountryIso
+          HouseNr: HouseNr
+          FirstName: FirstName
+          ZipCode: ZipCode
+          Region: Region
+          LastName: LastName
+          City: City
+          Original: Original
+        CurrencyCode: CurrencyCode
+        CompanyRegistrationNo: CompanyRegistrationNo
+        Phone: Phone
+        ShippingAddress:
+          StreetName: StreetName
+          CompanyName: CompanyName
+          HouseNrAddition: HouseNrAddition
+          CountryIso: CountryIso
+          HouseNr: HouseNr
+          FirstName: FirstName
+          ZipCode: ZipCode
+          Region: Region
+          LastName: LastName
+          City: City
+          Original: Original
+        ShippingCostsInclVat: 2.3021358869347655
+        IsBusinessOrder: true
+        PaymentMethod: PaymentMethod
+        ChannelCustomerNo: ChannelCustomerNo
+        Lines:
+        - UnitPriceInclVat: 1.4658129805029452
+          FeeFixed: 5.962133916683182
+          FeeRate: 5.637376656633329
+          Quantity: 0
+          CancellationRequestedQuantity: 6
+          ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - UnitPriceInclVat: 1.4658129805029452
+          FeeFixed: 5.962133916683182
+          FeeRate: 5.637376656633329
+          Quantity: 0
+          CancellationRequestedQuantity: 6
+          ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+      properties:
+        BillingAddress:
+          $ref: '#/components/schemas/ChannelAddressRequest'
+        ShippingAddress:
+          $ref: '#/components/schemas/ChannelAddressRequest'
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          maxLength: 50
+          minLength: 0
+          type: string
+        IsBusinessOrder:
+          description: "Optional. Is a business order (default value is false).\r\n\
+            If not provided the VAT Number will be checked. If a VAT Number is found,\
+            \ IsBusinessOrder will be set to true.\r\nNo VAT will be calculated when\
+            \ set to true."
+          nullable: true
+          type: boolean
+        KeyIsMerchantProductNo:
+          description: Optional. Is the MPN used as key for the product (default value
+            is false).
+          type: boolean
+        Lines:
+          description: The order lines.
+          items:
+            $ref: '#/components/schemas/ChannelOrderLineRequest'
+          type: array
+        Phone:
+          description: The customer's telephone number.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        Email:
+          description: The customer's email.
+          maxLength: 250
+          minLength: 0
+          type: string
+        CompanyRegistrationNo:
+          description: Optional. A company's chamber of commerce number.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        VatNo:
+          description: Optional. A company's VAT number.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        PaymentMethod:
+          description: The payment method used on the order.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        ShippingCostsInclVat:
+          description: "The shipping fee including VAT\r\n(in the shop's base currency\
+            \ calculated using the exchange rate at the time of ordering)."
+          format: decimal
+          type: number
+        CurrencyCode:
+          description: The currency code for the amounts of the order.
+          maxLength: 3
+          type: string
+        OrderDate:
+          description: The date the order was created at the channel.
+          format: date-time
+          type: string
+        ChannelCustomerNo:
+          description: The unique customer reference used by the channel.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the order.
+          nullable: true
+          type: object
+      required:
+      - BillingAddress
+      - ChannelOrderNo
+      - CurrencyCode
+      - Email
+      - Lines
+      - OrderDate
+      - ShippingAddress
+      - ShippingCostsInclVat
+      type: object
+    ApiResponse:
+      additionalProperties: false
+      example:
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        StatusCode: 0
+        LogId: 6
+        Success: true
+      properties:
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    ExtraDataType:
+      enum:
+      - TEXT
+      - NUMBER
+      - URL
+      - IMAGEURL
+      type: string
+    ChannelProductExtraDataItemResponse:
+      additionalProperties: false
+      example:
+        IsPublic: true
+        Value: Value
+        Key: Key
+      properties:
+        Key:
+          description: Name of the extra data field.
+          nullable: true
+          type: string
+        Value:
+          description: Value of the extra data field.
+          nullable: true
+          type: string
+        Type:
+          $ref: '#/components/schemas/ExtraDataType'
+        IsPublic:
+          description: Add this field to the export of the product feed to the channel.
+          type: boolean
+      type: object
+    VatRateType:
+      enum:
+      - STANDARD
+      - REDUCED
+      - SUPER_REDUCED
+      - EXEMPT
+      type: string
+    ChannelProductResponse:
+      additionalProperties: false
+      example:
+        MSRP: 5.962133916683182
+        Description: Description
+        Size: Size
+        PurchasePrice: 5.637376656633329
+        Url: Url
+        Name: Name
+        ParentChannelProductNo: ParentChannelProductNo
+        ExtraImageUrl9: ExtraImageUrl9
+        ExtraImageUrl8: ExtraImageUrl8
+        ExtraImageUrl7: ExtraImageUrl7
+        ExtraImageUrl6: ExtraImageUrl6
+        ExtraImageUrl5: ExtraImageUrl5
+        Color: Color
+        ExtraImageUrl4: ExtraImageUrl4
+        ImageUrl: ImageUrl
+        ManufacturerProductNumber: ManufacturerProductNumber
+        ExtraData:
+        - IsPublic: true
+          Value: Value
+          Key: Key
+        - IsPublic: true
+          Value: Value
+          Key: Key
+        Brand: Brand
+        ShippingTime: ShippingTime
+        Ean: Ean
+        MappedFields:
+          key: MappedFields
+        Price: 1.4658129805029452
+        ShippingCost: 2.3021358869347655
+        ExtraImageUrl3: ExtraImageUrl3
+        ExtraImageUrl2: ExtraImageUrl2
+        ExtraImageUrl1: ExtraImageUrl1
+        Id: 0
+        CategoryTrail: CategoryTrail
+        Stock: 6
+      properties:
+        Id:
+          description: "An unique identifier which ChannelEngine uses to identify\
+            \ the product.\r\nNeeded in the call 'POST /v2/products/data'."
+          format: int32
+          type: integer
+        ParentChannelProductNo:
+          description: The unique product reference used by the Channel for the parent
+            product.
+          nullable: true
+          type: string
+        MappedFields:
+          additionalProperties:
+            type: string
+          description: "A channel can require certain fields to be available. The\
+            \ channel\r\ncan provide ChannelEngine with this fields after which the\
+            \ merchants\r\nwill be able to fill in this field using custom conditions\
+            \ in ChannelEngine."
+          nullable: true
+          type: object
+        ExtraData:
+          description: "An optional list of key-value pairs containing\r\nextra data\
+            \ about this product. This data can be\r\nsent to channels or used for\
+            \ filtering products."
+          items:
+            $ref: '#/components/schemas/ChannelProductExtraDataItemResponse'
+          nullable: true
+          type: array
+        Name:
+          description: The name of the product.
+          nullable: true
+          type: string
+        Description:
+          description: "A description of the product. Can contain these HTML tags:\r\
+            \ndiv, span, pre, p, br, hr, hgroup, h1, h2, h3, h4, h5, h6, ul, ol, li,\
+            \ dl, dt, dd, strong, em, b, i, u, img, a, abbr, address, blockquote,\
+            \ area, audio, video, caption, table, tbody, td, tfoot, th, thead, tr."
+          nullable: true
+          type: string
+        Brand:
+          description: The brand of the product.
+          nullable: true
+          type: string
+        Size:
+          description: Optional. The size of the product (variant). E.g. fashion size
+            (S-XL, 46-56, etc), width of the watch, etc..
+          nullable: true
+          type: string
+        Color:
+          description: Optional. The color of the product (variant).
+          nullable: true
+          type: string
+        Ean:
+          description: The EAN of GTIN of the product.
+          nullable: true
+          type: string
+        ManufacturerProductNumber:
+          description: The unique product reference used by the manufacturer/vendor
+            of the product.
+          nullable: true
+          type: string
+        Stock:
+          description: The number of items in stock.
+          format: int32
+          type: integer
+        Price:
+          description: Price, including VAT.
+          format: decimal
+          type: number
+        MSRP:
+          description: Manufacturer's suggested retail price.
+          format: decimal
+          nullable: true
+          type: number
+        PurchasePrice:
+          description: Optional. The purchase price of the product. Useful for repricing.
+          format: decimal
+          nullable: true
+          type: number
+        VatRateType:
+          $ref: '#/components/schemas/VatRateType'
+        ShippingCost:
+          description: Shipping cost of the product.
+          format: decimal
+          nullable: true
+          type: number
+        ShippingTime:
+          description: "A textual representation of the shippingtime.\r\nFor example,\
+            \ in Dutch: 'Op werkdagen voor 22:00 uur besteld, morgen in huis'."
+          nullable: true
+          type: string
+        Url:
+          description: "A URL pointing to the merchant's webpage\r\nwhich displays\
+            \ this product."
+          nullable: true
+          type: string
+        ImageUrl:
+          description: "A URL at which an image of this product\r\ncan be found."
+          nullable: true
+          type: string
+        ExtraImageUrl1:
+          description: Url to an additional image of product (1).
+          nullable: true
+          type: string
+        ExtraImageUrl2:
+          description: Url to an additional image of product (2).
+          nullable: true
+          type: string
+        ExtraImageUrl3:
+          description: Url to an additional image of product (3).
+          nullable: true
+          type: string
+        ExtraImageUrl4:
+          description: Url to an additional image of product (4).
+          nullable: true
+          type: string
+        ExtraImageUrl5:
+          description: Url to an additional image of product (5).
+          nullable: true
+          type: string
+        ExtraImageUrl6:
+          description: Url to an additional image of product (6).
+          nullable: true
+          type: string
+        ExtraImageUrl7:
+          description: Url to an additional image of product (7).
+          nullable: true
+          type: string
+        ExtraImageUrl8:
+          description: Url to an additional image of product (8).
+          nullable: true
+          type: string
+        ExtraImageUrl9:
+          description: Url to an additional image of product (9).
+          nullable: true
+          type: string
+        CategoryTrail:
+          description: "The category to which this product belongs.\r\nPlease supply\
+            \ this field in the following format:\r\n'maincategory > category > subcategory'\r\
+            \nFor example:\r\n'vehicles > bikes > mountainbike'."
+          nullable: true
+          type: string
+      type: object
+    ChannelProductChangesResponse:
+      additionalProperties: false
+      example:
+        ToBeUpdated:
+        - MSRP: 5.962133916683182
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.637376656633329
+          Url: Url
+          Name: Name
+          ParentChannelProductNo: ParentChannelProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          MappedFields:
+            key: MappedFields
+          Price: 1.4658129805029452
+          ShippingCost: 2.3021358869347655
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          Id: 0
+          CategoryTrail: CategoryTrail
+          Stock: 6
+        - MSRP: 5.962133916683182
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.637376656633329
+          Url: Url
+          Name: Name
+          ParentChannelProductNo: ParentChannelProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          MappedFields:
+            key: MappedFields
+          Price: 1.4658129805029452
+          ShippingCost: 2.3021358869347655
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          Id: 0
+          CategoryTrail: CategoryTrail
+          Stock: 6
+        ToBeRemoved:
+        - ToBeRemoved
+        - ToBeRemoved
+        ToBeCreated:
+        - MSRP: 5.962133916683182
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.637376656633329
+          Url: Url
+          Name: Name
+          ParentChannelProductNo: ParentChannelProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          MappedFields:
+            key: MappedFields
+          Price: 1.4658129805029452
+          ShippingCost: 2.3021358869347655
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          Id: 0
+          CategoryTrail: CategoryTrail
+          Stock: 6
+        - MSRP: 5.962133916683182
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.637376656633329
+          Url: Url
+          Name: Name
+          ParentChannelProductNo: ParentChannelProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          MappedFields:
+            key: MappedFields
+          Price: 1.4658129805029452
+          ShippingCost: 2.3021358869347655
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          Id: 0
+          CategoryTrail: CategoryTrail
+          Stock: 6
+      properties:
+        ToBeCreated:
+          items:
+            $ref: '#/components/schemas/ChannelProductResponse'
+          nullable: true
+          type: array
+        ToBeUpdated:
+          items:
+            $ref: '#/components/schemas/ChannelProductResponse'
+          nullable: true
+          type: array
+        ToBeRemoved:
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    SingleOfChannelProductChangesResponse:
+      additionalProperties: false
+      example:
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+          ToBeUpdated:
+          - MSRP: 5.962133916683182
+            Description: Description
+            Size: Size
+            PurchasePrice: 5.637376656633329
+            Url: Url
+            Name: Name
+            ParentChannelProductNo: ParentChannelProductNo
+            ExtraImageUrl9: ExtraImageUrl9
+            ExtraImageUrl8: ExtraImageUrl8
+            ExtraImageUrl7: ExtraImageUrl7
+            ExtraImageUrl6: ExtraImageUrl6
+            ExtraImageUrl5: ExtraImageUrl5
+            Color: Color
+            ExtraImageUrl4: ExtraImageUrl4
+            ImageUrl: ImageUrl
+            ManufacturerProductNumber: ManufacturerProductNumber
+            ExtraData:
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            Brand: Brand
+            ShippingTime: ShippingTime
+            Ean: Ean
+            MappedFields:
+              key: MappedFields
+            Price: 1.4658129805029452
+            ShippingCost: 2.3021358869347655
+            ExtraImageUrl3: ExtraImageUrl3
+            ExtraImageUrl2: ExtraImageUrl2
+            ExtraImageUrl1: ExtraImageUrl1
+            Id: 0
+            CategoryTrail: CategoryTrail
+            Stock: 6
+          - MSRP: 5.962133916683182
+            Description: Description
+            Size: Size
+            PurchasePrice: 5.637376656633329
+            Url: Url
+            Name: Name
+            ParentChannelProductNo: ParentChannelProductNo
+            ExtraImageUrl9: ExtraImageUrl9
+            ExtraImageUrl8: ExtraImageUrl8
+            ExtraImageUrl7: ExtraImageUrl7
+            ExtraImageUrl6: ExtraImageUrl6
+            ExtraImageUrl5: ExtraImageUrl5
+            Color: Color
+            ExtraImageUrl4: ExtraImageUrl4
+            ImageUrl: ImageUrl
+            ManufacturerProductNumber: ManufacturerProductNumber
+            ExtraData:
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            Brand: Brand
+            ShippingTime: ShippingTime
+            Ean: Ean
+            MappedFields:
+              key: MappedFields
+            Price: 1.4658129805029452
+            ShippingCost: 2.3021358869347655
+            ExtraImageUrl3: ExtraImageUrl3
+            ExtraImageUrl2: ExtraImageUrl2
+            ExtraImageUrl1: ExtraImageUrl1
+            Id: 0
+            CategoryTrail: CategoryTrail
+            Stock: 6
+          ToBeRemoved:
+          - ToBeRemoved
+          - ToBeRemoved
+          ToBeCreated:
+          - MSRP: 5.962133916683182
+            Description: Description
+            Size: Size
+            PurchasePrice: 5.637376656633329
+            Url: Url
+            Name: Name
+            ParentChannelProductNo: ParentChannelProductNo
+            ExtraImageUrl9: ExtraImageUrl9
+            ExtraImageUrl8: ExtraImageUrl8
+            ExtraImageUrl7: ExtraImageUrl7
+            ExtraImageUrl6: ExtraImageUrl6
+            ExtraImageUrl5: ExtraImageUrl5
+            Color: Color
+            ExtraImageUrl4: ExtraImageUrl4
+            ImageUrl: ImageUrl
+            ManufacturerProductNumber: ManufacturerProductNumber
+            ExtraData:
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            Brand: Brand
+            ShippingTime: ShippingTime
+            Ean: Ean
+            MappedFields:
+              key: MappedFields
+            Price: 1.4658129805029452
+            ShippingCost: 2.3021358869347655
+            ExtraImageUrl3: ExtraImageUrl3
+            ExtraImageUrl2: ExtraImageUrl2
+            ExtraImageUrl1: ExtraImageUrl1
+            Id: 0
+            CategoryTrail: CategoryTrail
+            Stock: 6
+          - MSRP: 5.962133916683182
+            Description: Description
+            Size: Size
+            PurchasePrice: 5.637376656633329
+            Url: Url
+            Name: Name
+            ParentChannelProductNo: ParentChannelProductNo
+            ExtraImageUrl9: ExtraImageUrl9
+            ExtraImageUrl8: ExtraImageUrl8
+            ExtraImageUrl7: ExtraImageUrl7
+            ExtraImageUrl6: ExtraImageUrl6
+            ExtraImageUrl5: ExtraImageUrl5
+            Color: Color
+            ExtraImageUrl4: ExtraImageUrl4
+            ImageUrl: ImageUrl
+            ManufacturerProductNumber: ManufacturerProductNumber
+            ExtraData:
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            - IsPublic: true
+              Value: Value
+              Key: Key
+            Brand: Brand
+            ShippingTime: ShippingTime
+            Ean: Ean
+            MappedFields:
+              key: MappedFields
+            Price: 1.4658129805029452
+            ShippingCost: 2.3021358869347655
+            ExtraImageUrl3: ExtraImageUrl3
+            ExtraImageUrl2: ExtraImageUrl2
+            ExtraImageUrl1: ExtraImageUrl1
+            Id: 0
+            CategoryTrail: CategoryTrail
+            Stock: 6
+        StatusCode: 7
+        LogId: 9
+        Success: true
+      properties:
+        Content:
+          $ref: '#/components/schemas/ChannelProductChangesResponse'
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    ChannelProductReferencesRequest:
+      additionalProperties: false
+      example:
+        Id: 0
+        ChannelProductNo: ChannelProductNo
+      properties:
+        Id:
+          description: The unique ChannelEngine product ID.
+          format: int32
+          type: integer
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          nullable: true
+          type: string
+      type: object
+    ChannelProcessedChangesRequest:
+      additionalProperties: false
+      example:
+        Updated:
+        - Updated
+        - Updated
+        Removed:
+        - Removed
+        - Removed
+        Created:
+        - Id: 0
+          ChannelProductNo: ChannelProductNo
+        - Id: 0
+          ChannelProductNo: ChannelProductNo
+      properties:
+        Created:
+          description: "A collection of pairs of merchant and channel references\r\
+            \nof the products which are successfully created. The channel references\r\
+            \nare saved such that in subsequent calls these can be used instead of\
+            \ the\r\nmerchant references."
+          items:
+            $ref: '#/components/schemas/ChannelProductReferencesRequest'
+          nullable: true
+          type: array
+        Updated:
+          description: The channel references of the products which are successfully
+            updated.
+          items:
+            type: string
+          nullable: true
+          type: array
+        Removed:
+          description: The channel references of the products which are successfully
+            removed.
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    ChannelOfferResponse:
+      additionalProperties: false
+      example:
+        Price: 0.8008281904610115
+        MerchantProductNo: MerchantProductNo
+        Stock: 6
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          nullable: true
+          type: string
+        MerchantProductNo:
+          nullable: true
+          type: string
+        Price:
+          format: decimal
+          type: number
+        Stock:
+          format: int32
+          type: integer
+      type: object
+    CollectionOfChannelOfferResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 5
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - Price: 0.8008281904610115
+          MerchantProductNo: MerchantProductNo
+          Stock: 6
+          ChannelProductNo: ChannelProductNo
+        - Price: 0.8008281904610115
+          MerchantProductNo: MerchantProductNo
+          Stock: 6
+          ChannelProductNo: ChannelProductNo
+        ItemsPerPage: 5
+        Count: 1
+        StatusCode: 2
+        LogId: 7
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/ChannelOfferResponse'
+          nullable: true
+          type: array
+        Count:
+          description: The number of items in the current response.
+          format: int32
+          type: integer
+        TotalCount:
+          description: The total number of items.
+          format: int32
+          type: integer
+        ItemsPerPage:
+          description: The number of items per page.
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    ReturnStatus:
+      enum:
+      - IN_PROGRESS
+      - RECEIVED
+      - CANCELLED
+      type: string
+    ReturnReason:
+      enum:
+      - PRODUCT_DEFECT
+      - PRODUCT_UNSATISFACTORY
+      - WRONG_PRODUCT
+      - TOO_MANY_PRODUCTS
+      - REFUSED
+      - REFUSED_DAMAGED
+      - WRONG_ADDRESS
+      - NOT_COLLECTED
+      - WRONG_SIZE
+      - OTHER
+      type: string
+    ChannelReturnLineResponse:
+      additionalProperties: false
+      example:
+        RejectedQuantity: 6
+        AcceptedQuantity: 0
+        Quantity: 1
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant.
+          nullable: true
+          type: string
+        AcceptedQuantity:
+          description: The number of accepted items of the product in this return
+            (should normally be refunded).
+          format: int32
+          nullable: true
+          type: integer
+        RejectedQuantity:
+          description: The number of rejected items of the product in this return
+            (should normally not be refunded).
+          format: int32
+          nullable: true
+          type: integer
+        Quantity:
+          description: Number of items of the product in this return.
+          format: int32
+          type: integer
+      required:
+      - ChannelProductNo
+      - Quantity
+      type: object
+    ChannelReturnResponse:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        MerchantComment: MerchantComment
+        RefundExclVat: 2.3021358869347655
+        CustomerComment: CustomerComment
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        ChannelReturnNo: ChannelReturnNo
+        MerchantOrderNo: MerchantOrderNo
+        Id: 5
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        Lines:
+        - RejectedQuantity: 6
+          AcceptedQuantity: 0
+          Quantity: 1
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - RejectedQuantity: 6
+          AcceptedQuantity: 0
+          Quantity: 1
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        RefundInclVat: 5.637376656633329
+      properties:
+        ChannelReturnNo:
+          description: The unique return reference used by the Channel.
+          type: string
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          type: string
+        MerchantOrderNo:
+          description: The unique order reference used by the Merchant (sku).
+          nullable: true
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/ChannelReturnLineResponse'
+          type: array
+        CreatedAt:
+          description: The date at which the return was created in ChannelEngine.
+          format: date-time
+          type: string
+        UpdatedAt:
+          description: The date at which the return was last modified in ChannelEngine.
+          format: date-time
+          type: string
+        Id:
+          description: The unique return reference used by ChannelEngine.
+          format: int32
+          type: integer
+        Reason:
+          $ref: '#/components/schemas/ReturnReason'
+        CustomerComment:
+          description: Optional. Comment of customer on the (reason of) the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        MerchantComment:
+          description: Optional. Comment of merchant on the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        RefundInclVat:
+          description: Refund amount incl. VAT.
+          format: decimal
+          type: number
+        RefundExclVat:
+          description: Refund amount excl. VAT.
+          format: decimal
+          type: number
+      required:
+      - ChannelOrderNo
+      - ChannelReturnNo
+      - Lines
+      type: object
+    CollectionOfChannelReturnResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 9
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantComment: MerchantComment
+          RefundExclVat: 2.3021358869347655
+          CustomerComment: CustomerComment
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ChannelReturnNo: ChannelReturnNo
+          MerchantOrderNo: MerchantOrderNo
+          Id: 5
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Lines:
+          - RejectedQuantity: 6
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - RejectedQuantity: 6
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          RefundInclVat: 5.637376656633329
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantComment: MerchantComment
+          RefundExclVat: 2.3021358869347655
+          CustomerComment: CustomerComment
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ChannelReturnNo: ChannelReturnNo
+          MerchantOrderNo: MerchantOrderNo
+          Id: 5
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Lines:
+          - RejectedQuantity: 6
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - RejectedQuantity: 6
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          RefundInclVat: 5.637376656633329
+        ItemsPerPage: 3
+        Count: 7
+        StatusCode: 2
+        LogId: 4
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/ChannelReturnResponse'
+          nullable: true
+          type: array
+        Count:
+          description: The number of items in the current response.
+          format: int32
+          type: integer
+        TotalCount:
+          description: The total number of items.
+          format: int32
+          type: integer
+        ItemsPerPage:
+          description: The number of items per page.
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    ChannelReturnLineRequest:
+      additionalProperties: false
+      example:
+        Quantity: 0
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          nullable: true
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant.
+          nullable: true
+          type: string
+        Quantity:
+          description: Number of items of the product in this return.
+          format: int32
+          type: integer
+      required:
+      - Quantity
+      type: object
+    ChannelReturnRequest:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        MerchantComment: MerchantComment
+        RefundExclVat: 5.962133916683182
+        KeyIsMerchantOrderNo: true
+        CustomerComment: CustomerComment
+        ChannelReference: ChannelReference
+        KeyIsMerchantProductNo: true
+        MerchantOrderNo: MerchantOrderNo
+        Id: 6
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        RefundInclVat: 1.4658129805029452
+      properties:
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          nullable: true
+          type: string
+        MerchantOrderNo:
+          description: The unique order reference used by the Merchant (sku).
+          nullable: true
+          type: string
+        ChannelReference:
+          description: The unique return reference used by the Channel.
+          type: string
+        KeyIsMerchantOrderNo:
+          description: Optional. Is the MON used as key for the order (default value
+            is false).
+          type: boolean
+        KeyIsMerchantProductNo:
+          description: Optional. Is the MPN used as key for the product (default value
+            is false).
+          type: boolean
+        Lines:
+          items:
+            $ref: '#/components/schemas/ChannelReturnLineRequest'
+          type: array
+        Id:
+          description: The unique return reference used by ChannelEngine.
+          format: int32
+          type: integer
+        Reason:
+          $ref: '#/components/schemas/ReturnReason'
+        CustomerComment:
+          description: Optional. Comment of customer on the (reason of) the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        MerchantComment:
+          description: Optional. Comment of merchant on the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        RefundInclVat:
+          description: Refund amount incl. VAT.
+          format: decimal
+          type: number
+        RefundExclVat:
+          description: Refund amount excl. VAT.
+          format: decimal
+          type: number
+      required:
+      - ChannelReference
+      - Lines
+      type: object
+    ShipmentStatus:
+      enum:
+      - PENDING
+      - CLOSED
+      type: string
+    ChannelShipmentLineResponse:
+      additionalProperties: false
+      example:
+        Quantity: 0
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant.
+          nullable: true
+          type: string
+        Quantity:
+          description: Number of items of the product in the shipment.
+          format: int32
+          type: integer
+      required:
+      - ChannelProductNo
+      - Quantity
+      type: object
+    ChannelShipmentResponse:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        TrackTraceUrl: TrackTraceUrl
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        TrackTraceNo: TrackTraceNo
+        ReturnTrackTraceNo: ReturnTrackTraceNo
+        Method: Method
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+      properties:
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/ChannelShipmentLineResponse'
+          type: array
+        CreatedAt:
+          description: The date at which the shipment was created in ChannelEngine.
+          format: date-time
+          type: string
+        UpdatedAt:
+          description: The date at which the shipment was last modified in ChannelEngine.
+          format: date-time
+          type: string
+        TrackTraceNo:
+          description: The unique shipping reference used by the Shipping carrier
+            (track&trace number).
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        TrackTraceUrl:
+          description: A link to a page of the carrier where the customer can track
+            the shipping of her package.
+          maxLength: 250
+          minLength: 0
+          nullable: true
+          type: string
+        ReturnTrackTraceNo:
+          description: The unique return shipping reference that may be used by the
+            Shipping carrier (track & trace number) if the shipment is returned.
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        Method:
+          description: 'Shipment method: the carrier used for shipping the package.
+            E.g. DHL, postNL.'
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - ChannelOrderNo
+      - Lines
+      type: object
+    CollectionOfChannelShipmentResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 1
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - ChannelOrderNo: ChannelOrderNo
+          TrackTraceUrl: TrackTraceUrl
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          TrackTraceNo: TrackTraceNo
+          ReturnTrackTraceNo: ReturnTrackTraceNo
+          Method: Method
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        - ChannelOrderNo: ChannelOrderNo
+          TrackTraceUrl: TrackTraceUrl
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          TrackTraceNo: TrackTraceNo
+          ReturnTrackTraceNo: ReturnTrackTraceNo
+          Method: Method
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        ItemsPerPage: 5
+        Count: 6
+        StatusCode: 5
+        LogId: 2
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/ChannelShipmentResponse'
+          nullable: true
+          type: array
+        Count:
+          description: The number of items in the current response.
+          format: int32
+          type: integer
+        TotalCount:
+          description: The total number of items.
+          format: int32
+          type: integer
+        ItemsPerPage:
+          description: The number of items per page.
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+  securitySchemes:
+    apiKey:
+      description: API Key Authentication
+      in: query
+      name: apikey
+      type: apiKey
+x-version: 2.9.3
+
