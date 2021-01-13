@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.9.3
+  version: 2.9.4
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -170,7 +170,7 @@ paths:
         be created, updated or removed from the channel.<br />After the products have
         been received and processed successfully 'v2/products/data' should<br />be
         called with the merchant references of the products which have been processed
-        (see POST 'v2/products/data').<br />ChannelEnginewill save this information
+        (see POST 'v2/products/data').<br />ChannelEngine will save this information
         to make sure that the next call to GET 'v2/products/data' only returns the<br
         />products that really have changes (and therefore should be created, updated
         or deleted).<br />A channel willing to integrate with channelengine should
@@ -475,7 +475,8 @@ paths:
       x-accepts: application/json
   /v2/shipments:
     get:
-      description: Gets all shipments created since the supplied date.
+      description: Gets all shipments created since the supplied date with status
+        CLOSED.
       operationId: ShipmentIndex
       parameters:
       - description: Deprecated, please use FromDate instead.
@@ -490,13 +491,14 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: Shipment status(es) to filter on.
+      - description: Deprecated, shipment status(es) to filter on.
         explode: true
         in: query
         name: statuses
         required: false
         schema:
-          description: Shipment status(es) to filter on.
+          deprecated: true
+          description: Deprecated, shipment status(es) to filter on.
           items:
             $ref: '#/components/schemas/ShipmentStatus'
           nullable: true
@@ -558,6 +560,39 @@ paths:
                 $ref: '#/components/schemas/CollectionOfChannelShipmentResponse'
           description: Success
       summary: Get Shipments.
+      tags:
+      - Shipment
+      x-accepts: application/json
+  /v2/orders/{merchantShipmentNo}/shippinglabel:
+    get:
+      description: Downloads the shipping label for the shipment
+      operationId: ShipmentShippingLabel
+      parameters:
+      - description: The unique shipment reference as used by the merchant.
+        explode: false
+        in: path
+        name: merchantShipmentNo
+        required: true
+        schema:
+          description: The unique shipment reference as used by the merchant.
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/vnd.shippingLabel:
+              schema:
+                format: byte
+                type: file
+          description: shippingLabel
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Download shipping label.
       tags:
       - Shipment
       x-accepts: application/json
@@ -678,15 +713,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1738,15 +1770,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1966,15 +1995,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -2235,15 +2261,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -2272,5 +2295,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.3
+x-version: 2.9.4
 

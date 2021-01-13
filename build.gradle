@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 
 group = 'com.channelengine.channel.apiclient'
-version = '2.9.3'
+version = '2.9.4'
 
 buildscript {
     repositories {
@@ -20,7 +20,7 @@ repositories {
     jcenter()
 }
 sourceSets {
-    main.java.srcDirs = ['src/main/java']
+    main.java.srcDirs = ['src/main\java']
 }
 
 if(hasProperty('target') && target == 'android') {
