@@ -24,20 +24,20 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets ReturnStatus
+ * Gets or Sets ShipmentLineStatus
  */
-@JsonAdapter(ReturnStatus.Adapter.class)
-public enum ReturnStatus {
+@JsonAdapter(ShipmentLineStatus.Adapter.class)
+public enum ShipmentLineStatus {
   
-  IN_PROGRESS("IN_PROGRESS"),
+  SHIPPED("SHIPPED"),
   
-  RECEIVED("RECEIVED"),
+  IN_BACKORDER("IN_BACKORDER"),
   
-  CANCELLED("CANCELLED");
+  MANCO("MANCO");
 
   private String value;
 
-  ReturnStatus(String value) {
+  ShipmentLineStatus(String value) {
     this.value = value;
   }
 
@@ -50,8 +50,8 @@ public enum ReturnStatus {
     return String.valueOf(value);
   }
 
-  public static ReturnStatus fromValue(String value) {
-    for (ReturnStatus b : ReturnStatus.values()) {
+  public static ShipmentLineStatus fromValue(String value) {
+    for (ShipmentLineStatus b : ShipmentLineStatus.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -59,16 +59,16 @@ public enum ReturnStatus {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<ReturnStatus> {
+  public static class Adapter extends TypeAdapter<ShipmentLineStatus> {
     @Override
-    public void write(final JsonWriter jsonWriter, final ReturnStatus enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final ShipmentLineStatus enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public ReturnStatus read(final JsonReader jsonReader) throws IOException {
+    public ShipmentLineStatus read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return ReturnStatus.fromValue(value);
+      return ShipmentLineStatus.fromValue(value);
     }
   }
 }

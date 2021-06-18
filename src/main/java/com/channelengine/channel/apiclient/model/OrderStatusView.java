@@ -24,20 +24,36 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets ReturnStatus
+ * Gets or Sets OrderStatusView
  */
-@JsonAdapter(ReturnStatus.Adapter.class)
-public enum ReturnStatus {
+@JsonAdapter(OrderStatusView.Adapter.class)
+public enum OrderStatusView {
   
   IN_PROGRESS("IN_PROGRESS"),
   
-  RECEIVED("RECEIVED"),
+  SHIPPED("SHIPPED"),
   
-  CANCELLED("CANCELLED");
+  IN_BACKORDER("IN_BACKORDER"),
+  
+  MANCO("MANCO"),
+  
+  CANCELED("CANCELED"),
+  
+  IN_COMBI("IN_COMBI"),
+  
+  CLOSED("CLOSED"),
+  
+  NEW("NEW"),
+  
+  RETURNED("RETURNED"),
+  
+  REQUIRES_CORRECTION("REQUIRES_CORRECTION"),
+  
+  AWAITING_PAYMENT("AWAITING_PAYMENT");
 
   private String value;
 
-  ReturnStatus(String value) {
+  OrderStatusView(String value) {
     this.value = value;
   }
 
@@ -50,8 +66,8 @@ public enum ReturnStatus {
     return String.valueOf(value);
   }
 
-  public static ReturnStatus fromValue(String value) {
-    for (ReturnStatus b : ReturnStatus.values()) {
+  public static OrderStatusView fromValue(String value) {
+    for (OrderStatusView b : OrderStatusView.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -59,16 +75,16 @@ public enum ReturnStatus {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<ReturnStatus> {
+  public static class Adapter extends TypeAdapter<OrderStatusView> {
     @Override
-    public void write(final JsonWriter jsonWriter, final ReturnStatus enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final OrderStatusView enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public ReturnStatus read(final JsonReader jsonReader) throws IOException {
+    public OrderStatusView read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return ReturnStatus.fromValue(value);
+      return OrderStatusView.fromValue(value);
     }
   }
 }
