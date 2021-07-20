@@ -66,6 +66,5 @@ src/main/java/com/channelengine/channel/apiclient/model/OrderStatusView.java
 src/main/java/com/channelengine/channel/apiclient/model/ReturnReason.java
 src/main/java/com/channelengine/channel/apiclient/model/ReturnStatus.java
 src/main/java/com/channelengine/channel/apiclient/model/ShipmentLineStatus.java
-src/main/java/com/channelengine/channel/apiclient/model/ShipmentStatus.java
 src/main/java/com/channelengine/channel/apiclient/model/SingleOfChannelProductChangesResponse.java
 src/main/java/com/channelengine/channel/apiclient/model/VatRateType.java

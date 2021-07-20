@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.9.7
+  version: 2.9.8
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -397,18 +397,6 @@ paths:
         />call.
       operationId: ReturnGetDeclaredByMerchant
       parameters:
-      - description: Deprecated, please use FromDate instead.
-        explode: true
-        in: query
-        name: createdSince
-        required: false
-        schema:
-          deprecated: true
-          description: Deprecated, please use FromDate instead.
-          format: date-time
-          nullable: true
-          type: string
-        style: form
       - description: Return status(es) to filter on.
         explode: true
         in: query
@@ -530,31 +518,6 @@ paths:
         CLOSED.
       operationId: ShipmentIndex
       parameters:
-      - description: Deprecated, please use FromDate instead.
-        explode: true
-        in: query
-        name: createdSince
-        required: false
-        schema:
-          deprecated: true
-          description: Deprecated, please use FromDate instead.
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - description: Deprecated, shipment status(es) to filter on.
-        explode: true
-        in: query
-        name: statuses
-        required: false
-        schema:
-          deprecated: true
-          description: Deprecated, shipment status(es) to filter on.
-          items:
-            $ref: '#/components/schemas/ShipmentStatus'
-          nullable: true
-          type: array
-        style: form
       - description: Filter on the creation date, starting from this date. This date
           is inclusive.
         explode: true
@@ -774,7 +737,7 @@ components:
           type: string
         ChannelProductNo:
           description: The unique product reference used by the channel.
-          maxLength: 50
+          maxLength: 60
           minLength: 0
           type: string
         MerchantProductNo:
@@ -1236,7 +1199,7 @@ components:
       properties:
         ChannelProductNo:
           description: The unique product reference used by the channel.
-          maxLength: 50
+          maxLength: 60
           minLength: 0
           type: string
         MerchantProductNo:
@@ -1313,6 +1276,7 @@ components:
         CurrencyCode: CurrencyCode
         CompanyRegistrationNo: CompanyRegistrationNo
         Phone: Phone
+        PaymentReferenceNo: PaymentReferenceNo
         ShippingAddress:
           StreetName: StreetName
           CompanyName: CompanyName
@@ -1353,7 +1317,7 @@ components:
           $ref: '#/components/schemas/ChannelAddressRequest'
         ChannelOrderNo:
           description: The unique order reference used by the Channel.
-          maxLength: 50
+          maxLength: 60
           minLength: 0
           type: string
         IsBusinessOrder:
@@ -1398,6 +1362,12 @@ components:
         PaymentMethod:
           description: The payment method used on the order.
           maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        PaymentReferenceNo:
+          description: Reference or transaction id for the payment
+          maxLength: 250
           minLength: 0
           nullable: true
           type: string
@@ -2665,11 +2635,6 @@ components:
       - ChannelReference
       - Lines
       type: object
-    ShipmentStatus:
-      enum:
-      - PENDING
-      - CLOSED
-      type: string
     ChannelShipmentLineResponse:
       additionalProperties: false
       example:
@@ -2992,5 +2957,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.7
+x-version: 2.9.8
 
