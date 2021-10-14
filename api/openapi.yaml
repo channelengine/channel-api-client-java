@@ -2,9 +2,9 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.9.8
+  version: 2.9.9
 servers:
-- url: https://demo.channelengine.net/api
+- url: http://dev.channelengine.local/api
 security:
 - apiKey: []
 paths:
@@ -13,11 +13,13 @@ paths:
       description: Gets all cancellations created since the supplied date.
       operationId: CancellationIndex
       parameters:
-      - explode: true
+      - description: The date from which you will get all created cancellations
+        explode: true
         in: query
         name: createdSince
         required: false
         schema:
+          description: The date from which you will get all created cancellations
           format: date-time
           type: string
         style: form
@@ -640,13 +642,13 @@ components:
     ChannelOrderLineResponse:
       additionalProperties: false
       example:
-        UnitPriceInclVat: 4.145608029883936
+        UnitPriceInclVat: 0.4145608029883936
         UnitVat: 0.8008281904610115
         BundleProductMerchantProductNo: BundleProductMerchantProductNo
         Description: Description
-        FeeFixed: 7.386281948385884
-        FeeRate: 1.2315135367772556
-        Quantity: 3
+        FeeFixed: 0.7386281948385884
+        FeeRate: 0.12315135367772556
+        Quantity: 0
         OriginalUnitVat: 5.637376656633329
         IsFulfillmentByMarketplace: true
         OriginalLineTotalInclVat: 2.3021358869347655
@@ -655,7 +657,7 @@ components:
         LineVat: 1.4658129805029452
         OriginalFeeFixed: 9.301444243932576
         OriginalLineVat: 7.061401241503109
-        CancellationRequestedQuantity: 2
+        CancellationRequestedQuantity: 0
         ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
         MerchantProductNo: MerchantProductNo
         LineTotalInclVat: 6.027456183070403
@@ -749,6 +751,7 @@ components:
         Quantity:
           description: The number of items of the product.
           format: int32
+          minimum: 0
           type: integer
         CancellationRequestedQuantity:
           description: "The number of items for which cancellation was requested by\
@@ -758,23 +761,27 @@ components:
             \nUse this field to check whether it is still possible to cancel the order.\
             \ If this is the case, submit a cancellation to ChannelEngine."
           format: int32
+          minimum: 0
           type: integer
         UnitPriceInclVat:
           description: "The value of a single unit of the ordered product including\
             \ VAT\r\n(in the shop's base currency calculated using the exchange rate\
             \ at the time of ordering)."
           format: decimal
+          minimum: 0
           type: number
         FeeFixed:
           description: "A fixed fee that is charged by the Channel for this orderline.\r\
             \nThis fee rate is based on the currency of the Channel\r\nThis field\
             \ is optional, send 0 if not applicable."
           format: decimal
+          minimum: 0
           type: number
         FeeRate:
           description: "A percentage fee that is charged by the Channel for this orderline.\r\
             \nThis field is optional, send 0 if not applicable."
           format: decimal
+          minimum: 0
           type: number
         Condition:
           $ref: '#/components/schemas/Condition'
@@ -799,13 +806,13 @@ components:
       additionalProperties: false
       example:
         OrderLine:
-          UnitPriceInclVat: 4.145608029883936
+          UnitPriceInclVat: 0.4145608029883936
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 7.386281948385884
-          FeeRate: 1.2315135367772556
-          Quantity: 3
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
@@ -814,12 +821,12 @@ components:
           LineVat: 1.4658129805029452
           OriginalFeeFixed: 9.301444243932576
           OriginalLineVat: 7.061401241503109
-          CancellationRequestedQuantity: 2
+          CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
           ChannelProductNo: ChannelProductNo
-        Quantity: 1
+        Quantity: 0
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
       properties:
@@ -837,6 +844,7 @@ components:
         Quantity:
           description: Quantity of the product to cancel.
           format: int32
+          minimum: 0
           type: integer
       required:
       - ChannelProductNo
@@ -860,13 +868,13 @@ components:
         Reason: Reason
         Lines:
         - OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -875,22 +883,22 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
             ChannelProductNo: ChannelProductNo
-          Quantity: 1
+          Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -899,12 +907,12 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
             ChannelProductNo: ChannelProductNo
-          Quantity: 1
+          Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
       properties:
@@ -949,13 +957,13 @@ components:
           Reason: Reason
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -964,22 +972,22 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -988,12 +996,12 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
         - ChannelOrderNo: ChannelOrderNo
@@ -1002,13 +1010,13 @@ components:
           Reason: Reason
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -1017,22 +1025,22 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -1041,12 +1049,12 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
         ItemsPerPage: 7
@@ -1188,11 +1196,11 @@ components:
     ChannelOrderLineRequest:
       additionalProperties: false
       example:
-        UnitPriceInclVat: 1.4658129805029452
-        FeeFixed: 5.962133916683182
-        FeeRate: 5.637376656633329
+        UnitPriceInclVat: 0.14658129805029452
+        FeeFixed: 0.5962133916683182
+        FeeRate: 0.5637376656633328
         Quantity: 0
-        CancellationRequestedQuantity: 6
+        CancellationRequestedQuantity: 0
         ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
@@ -1211,6 +1219,7 @@ components:
         Quantity:
           description: The number of items of the product.
           format: int32
+          minimum: 0
           type: integer
         CancellationRequestedQuantity:
           description: "The number of items for which cancellation was requested by\
@@ -1220,23 +1229,27 @@ components:
             \nUse this field to check whether it is still possible to cancel the order.\
             \ If this is the case, submit a cancellation to ChannelEngine."
           format: int32
+          minimum: 0
           type: integer
         UnitPriceInclVat:
           description: "The value of a single unit of the ordered product including\
             \ VAT\r\n(in the shop's base currency calculated using the exchange rate\
             \ at the time of ordering)."
           format: decimal
+          minimum: 0
           type: number
         FeeFixed:
           description: "A fixed fee that is charged by the Channel for this orderline.\r\
             \nThis fee rate is based on the currency of the Channel\r\nThis field\
             \ is optional, send 0 if not applicable."
           format: decimal
+          minimum: 0
           type: number
         FeeRate:
           description: "A percentage fee that is charged by the Channel for this orderline.\r\
             \nThis field is optional, send 0 if not applicable."
           format: decimal
+          minimum: 0
           type: number
         Condition:
           $ref: '#/components/schemas/Condition'
@@ -1289,24 +1302,24 @@ components:
           LastName: LastName
           City: City
           Original: Original
-        ShippingCostsInclVat: 2.3021358869347655
+        ShippingCostsInclVat: 0.23021358869347652
         IsBusinessOrder: true
         PaymentMethod: PaymentMethod
         ChannelCustomerNo: ChannelCustomerNo
         Lines:
-        - UnitPriceInclVat: 1.4658129805029452
-          FeeFixed: 5.962133916683182
-          FeeRate: 5.637376656633329
+        - UnitPriceInclVat: 0.14658129805029452
+          FeeFixed: 0.5962133916683182
+          FeeRate: 0.5637376656633328
           Quantity: 0
-          CancellationRequestedQuantity: 6
+          CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
-        - UnitPriceInclVat: 1.4658129805029452
-          FeeFixed: 5.962133916683182
-          FeeRate: 5.637376656633329
+        - UnitPriceInclVat: 0.14658129805029452
+          FeeFixed: 0.5962133916683182
+          FeeRate: 0.5637376656633328
           Quantity: 0
-          CancellationRequestedQuantity: 6
+          CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
@@ -1375,6 +1388,7 @@ components:
           description: "The shipping fee including VAT\r\n(in the shop's base currency\
             \ calculated using the exchange rate at the time of ordering)."
           format: decimal
+          minimum: 0
           type: number
         CurrencyCode:
           description: The currency code for the amounts of the order.
@@ -1450,8 +1464,9 @@ components:
           type: integer
         ChannelProductNo:
           description: The unique product reference used by the Channel.
-          nullable: true
           type: string
+      required:
+      - ChannelProductNo
       type: object
     ChannelProcessedChangesRequest:
       additionalProperties: false
@@ -1508,10 +1523,13 @@ components:
       properties:
         Key:
           description: Name of the extra data field.
+          maxLength: 100
+          minLength: 0
           nullable: true
           type: string
         Value:
           description: Value of the extra data field.
+          maxLength: -1
           nullable: true
           type: string
         Type:
@@ -1558,7 +1576,7 @@ components:
         Ean: Ean
         MappedFields:
           key: MappedFields
-        Price: 1.4658129805029452
+        Price: 0.14658129805029452
         GrandparentChannelProductNo: GrandparentChannelProductNo
         ShippingCost: 2.3021358869347655
         ExtraImageUrl3: ExtraImageUrl3
@@ -1566,7 +1584,7 @@ components:
         ExtraImageUrl1: ExtraImageUrl1
         Id: 0
         CategoryTrail: CategoryTrail
-        Stock: 6
+        Stock: 0
       properties:
         Id:
           description: "An unique identifier which ChannelEngine uses to identify\
@@ -1602,6 +1620,8 @@ components:
           type: array
         Name:
           description: The name of the product.
+          maxLength: 256
+          minLength: 0
           nullable: true
           type: string
         Description:
@@ -1613,33 +1633,45 @@ components:
           type: string
         Brand:
           description: The brand of the product.
+          maxLength: 256
+          minLength: 0
           nullable: true
           type: string
         Size:
           description: Optional. The size of the product (variant). E.g. fashion size
             (S-XL, 46-56, etc), width of the watch, etc..
+          maxLength: 64
+          minLength: 0
           nullable: true
           type: string
         Color:
           description: Optional. The color of the product (variant).
+          maxLength: 64
+          minLength: 0
           nullable: true
           type: string
         Ean:
           description: The EAN of GTIN of the product.
+          maxLength: 64
+          minLength: 0
           nullable: true
           type: string
         ManufacturerProductNumber:
           description: The unique product reference used by the manufacturer/vendor
             of the product.
+          maxLength: 64
+          minLength: 0
           nullable: true
           type: string
         Stock:
           description: The number of items in stock.
           format: int32
+          minimum: 0
           type: integer
         Price:
           description: Price, including VAT.
           format: decimal
+          minimum: 0
           type: number
         MSRP:
           description: Manufacturer's suggested retail price.
@@ -1661,51 +1693,75 @@ components:
         ShippingTime:
           description: "A textual representation of the shippingtime.\r\nFor example,\
             \ in Dutch: 'Op werkdagen voor 22:00 uur besteld, morgen in huis'."
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         Url:
           description: "A URL pointing to the merchant's webpage\r\nwhich displays\
             \ this product."
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ImageUrl:
           description: "A URL at which an image of this product\r\ncan be found."
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl1:
           description: Url to an additional image of product (1).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl2:
           description: Url to an additional image of product (2).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl3:
           description: Url to an additional image of product (3).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl4:
           description: Url to an additional image of product (4).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl5:
           description: Url to an additional image of product (5).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl6:
           description: Url to an additional image of product (6).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl7:
           description: Url to an additional image of product (7).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl8:
           description: Url to an additional image of product (8).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         ExtraImageUrl9:
           description: Url to an additional image of product (9).
+          maxLength: 512
+          minLength: 0
           nullable: true
           type: string
         CategoryTrail:
@@ -1747,7 +1803,7 @@ components:
           Ean: Ean
           MappedFields:
             key: MappedFields
-          Price: 1.4658129805029452
+          Price: 0.14658129805029452
           GrandparentChannelProductNo: GrandparentChannelProductNo
           ShippingCost: 2.3021358869347655
           ExtraImageUrl3: ExtraImageUrl3
@@ -1755,7 +1811,7 @@ components:
           ExtraImageUrl1: ExtraImageUrl1
           Id: 0
           CategoryTrail: CategoryTrail
-          Stock: 6
+          Stock: 0
         - MSRP: 5.962133916683182
           Description: Description
           Size: Size
@@ -1784,7 +1840,7 @@ components:
           Ean: Ean
           MappedFields:
             key: MappedFields
-          Price: 1.4658129805029452
+          Price: 0.14658129805029452
           GrandparentChannelProductNo: GrandparentChannelProductNo
           ShippingCost: 2.3021358869347655
           ExtraImageUrl3: ExtraImageUrl3
@@ -1792,7 +1848,7 @@ components:
           ExtraImageUrl1: ExtraImageUrl1
           Id: 0
           CategoryTrail: CategoryTrail
-          Stock: 6
+          Stock: 0
         ToBeRemoved:
         - ToBeRemoved
         - ToBeRemoved
@@ -1825,7 +1881,7 @@ components:
           Ean: Ean
           MappedFields:
             key: MappedFields
-          Price: 1.4658129805029452
+          Price: 0.14658129805029452
           GrandparentChannelProductNo: GrandparentChannelProductNo
           ShippingCost: 2.3021358869347655
           ExtraImageUrl3: ExtraImageUrl3
@@ -1833,7 +1889,7 @@ components:
           ExtraImageUrl1: ExtraImageUrl1
           Id: 0
           CategoryTrail: CategoryTrail
-          Stock: 6
+          Stock: 0
         - MSRP: 5.962133916683182
           Description: Description
           Size: Size
@@ -1862,7 +1918,7 @@ components:
           Ean: Ean
           MappedFields:
             key: MappedFields
-          Price: 1.4658129805029452
+          Price: 0.14658129805029452
           GrandparentChannelProductNo: GrandparentChannelProductNo
           ShippingCost: 2.3021358869347655
           ExtraImageUrl3: ExtraImageUrl3
@@ -1870,7 +1926,7 @@ components:
           ExtraImageUrl1: ExtraImageUrl1
           Id: 0
           CategoryTrail: CategoryTrail
-          Stock: 6
+          Stock: 0
       properties:
         ToBeCreated:
           items:
@@ -1926,7 +1982,7 @@ components:
             Ean: Ean
             MappedFields:
               key: MappedFields
-            Price: 1.4658129805029452
+            Price: 0.14658129805029452
             GrandparentChannelProductNo: GrandparentChannelProductNo
             ShippingCost: 2.3021358869347655
             ExtraImageUrl3: ExtraImageUrl3
@@ -1934,7 +1990,7 @@ components:
             ExtraImageUrl1: ExtraImageUrl1
             Id: 0
             CategoryTrail: CategoryTrail
-            Stock: 6
+            Stock: 0
           - MSRP: 5.962133916683182
             Description: Description
             Size: Size
@@ -1963,7 +2019,7 @@ components:
             Ean: Ean
             MappedFields:
               key: MappedFields
-            Price: 1.4658129805029452
+            Price: 0.14658129805029452
             GrandparentChannelProductNo: GrandparentChannelProductNo
             ShippingCost: 2.3021358869347655
             ExtraImageUrl3: ExtraImageUrl3
@@ -1971,7 +2027,7 @@ components:
             ExtraImageUrl1: ExtraImageUrl1
             Id: 0
             CategoryTrail: CategoryTrail
-            Stock: 6
+            Stock: 0
           ToBeRemoved:
           - ToBeRemoved
           - ToBeRemoved
@@ -2004,7 +2060,7 @@ components:
             Ean: Ean
             MappedFields:
               key: MappedFields
-            Price: 1.4658129805029452
+            Price: 0.14658129805029452
             GrandparentChannelProductNo: GrandparentChannelProductNo
             ShippingCost: 2.3021358869347655
             ExtraImageUrl3: ExtraImageUrl3
@@ -2012,7 +2068,7 @@ components:
             ExtraImageUrl1: ExtraImageUrl1
             Id: 0
             CategoryTrail: CategoryTrail
-            Stock: 6
+            Stock: 0
           - MSRP: 5.962133916683182
             Description: Description
             Size: Size
@@ -2041,7 +2097,7 @@ components:
             Ean: Ean
             MappedFields:
               key: MappedFields
-            Price: 1.4658129805029452
+            Price: 0.14658129805029452
             GrandparentChannelProductNo: GrandparentChannelProductNo
             ShippingCost: 2.3021358869347655
             ExtraImageUrl3: ExtraImageUrl3
@@ -2049,7 +2105,7 @@ components:
             ExtraImageUrl1: ExtraImageUrl1
             Id: 0
             CategoryTrail: CategoryTrail
-            Stock: 6
+            Stock: 0
         StatusCode: 7
         LogId: 9
         Success: true
@@ -2079,6 +2135,8 @@ components:
     ChannelOfferResponse:
       additionalProperties: false
       example:
+        MappedFields:
+          key: MappedFields
         Price: 0.8008281904610115
         MerchantProductNo: MerchantProductNo
         Stock: 6
@@ -2097,6 +2155,15 @@ components:
         Stock:
           format: int32
           type: integer
+        MappedFields:
+          additionalProperties:
+            type: string
+          description: "A channel can require certain fields to be available. The\
+            \ channel\r\ncan provide ChannelEngine with this fields after which the\
+            \ merchants\r\nwill be able to fill in this field using custom conditions\
+            \ in ChannelEngine."
+          nullable: true
+          type: object
       type: object
     CollectionOfChannelOfferResponse:
       additionalProperties: false
@@ -2108,11 +2175,15 @@ components:
           - ValidationErrors
           - ValidationErrors
         Content:
-        - Price: 0.8008281904610115
+        - MappedFields:
+            key: MappedFields
+          Price: 0.8008281904610115
           MerchantProductNo: MerchantProductNo
           Stock: 6
           ChannelProductNo: ChannelProductNo
-        - Price: 0.8008281904610115
+        - MappedFields:
+            key: MappedFields
+          Price: 0.8008281904610115
           MerchantProductNo: MerchantProductNo
           Stock: 6
           ChannelProductNo: ChannelProductNo
@@ -2187,13 +2258,13 @@ components:
       example:
         RejectedQuantity: 6
         OrderLine:
-          UnitPriceInclVat: 4.145608029883936
+          UnitPriceInclVat: 0.4145608029883936
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 7.386281948385884
-          FeeRate: 1.2315135367772556
-          Quantity: 3
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
@@ -2202,13 +2273,13 @@ components:
           LineVat: 1.4658129805029452
           OriginalFeeFixed: 9.301444243932576
           OriginalLineVat: 7.061401241503109
-          CancellationRequestedQuantity: 2
+          CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
           ChannelProductNo: ChannelProductNo
         AcceptedQuantity: 0
-        Quantity: 1
+        Quantity: 0
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
       properties:
@@ -2238,6 +2309,7 @@ components:
         Quantity:
           description: Number of items of the product in this return.
           format: int32
+          minimum: 0
           type: integer
       required:
       - ChannelProductNo
@@ -2248,7 +2320,7 @@ components:
       example:
         ChannelOrderNo: ChannelOrderNo
         MerchantComment: MerchantComment
-        RefundExclVat: 2.3021358869347655
+        RefundExclVat: 0.23021358869347652
         CustomerComment: CustomerComment
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         ChannelReturnNo: ChannelReturnNo
@@ -2258,13 +2330,13 @@ components:
         Lines:
         - RejectedQuantity: 6
           OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -2273,24 +2345,24 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
             ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
-          Quantity: 1
+          Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - RejectedQuantity: 6
           OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -2299,16 +2371,16 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
             ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
-          Quantity: 1
+          Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
-        RefundInclVat: 5.637376656633329
+        RefundInclVat: 0.5637376656633328
       properties:
         ChannelReturnNo:
           description: The unique return reference used by the Channel.
@@ -2353,10 +2425,12 @@ components:
         RefundInclVat:
           description: Refund amount incl. VAT.
           format: decimal
+          minimum: 0
           type: number
         RefundExclVat:
           description: Refund amount excl. VAT.
           format: decimal
+          minimum: 0
           type: number
       required:
       - ChannelOrderNo
@@ -2375,7 +2449,7 @@ components:
         Content:
         - ChannelOrderNo: ChannelOrderNo
           MerchantComment: MerchantComment
-          RefundExclVat: 2.3021358869347655
+          RefundExclVat: 0.23021358869347652
           CustomerComment: CustomerComment
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           ChannelReturnNo: ChannelReturnNo
@@ -2385,13 +2459,13 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2400,24 +2474,24 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2426,19 +2500,19 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
-          RefundInclVat: 5.637376656633329
+          RefundInclVat: 0.5637376656633328
         - ChannelOrderNo: ChannelOrderNo
           MerchantComment: MerchantComment
-          RefundExclVat: 2.3021358869347655
+          RefundExclVat: 0.23021358869347652
           CustomerComment: CustomerComment
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           ChannelReturnNo: ChannelReturnNo
@@ -2448,13 +2522,13 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2463,24 +2537,24 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2489,16 +2563,16 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
-            Quantity: 1
+            Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
-          RefundInclVat: 5.637376656633329
+          RefundInclVat: 0.5637376656633328
         ItemsPerPage: 3
         Count: 7
         StatusCode: 2
@@ -2557,6 +2631,7 @@ components:
         Quantity:
           description: Number of items of the product in this return.
           format: int32
+          minimum: 0
           type: integer
       required:
       - Quantity
@@ -2566,7 +2641,7 @@ components:
       example:
         ChannelOrderNo: ChannelOrderNo
         MerchantComment: MerchantComment
-        RefundExclVat: 5.962133916683182
+        RefundExclVat: 0.5962133916683182
         KeyIsMerchantOrderNo: true
         CustomerComment: CustomerComment
         ChannelReference: ChannelReference
@@ -2580,7 +2655,7 @@ components:
         - Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
-        RefundInclVat: 1.4658129805029452
+        RefundInclVat: 0.14658129805029452
       properties:
         ChannelOrderNo:
           description: The unique order reference used by the Channel.
@@ -2604,6 +2679,7 @@ components:
         Lines:
           items:
             $ref: '#/components/schemas/ChannelReturnLineRequest'
+          minItems: 1
           type: array
         Id:
           description: The unique return reference used by ChannelEngine.
@@ -2626,10 +2702,12 @@ components:
         RefundInclVat:
           description: Refund amount incl. VAT.
           format: decimal
+          minimum: 0
           type: number
         RefundExclVat:
           description: Refund amount excl. VAT.
           format: decimal
+          minimum: 0
           type: number
       required:
       - ChannelReference
@@ -2639,13 +2717,13 @@ components:
       additionalProperties: false
       example:
         OrderLine:
-          UnitPriceInclVat: 4.145608029883936
+          UnitPriceInclVat: 0.4145608029883936
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 7.386281948385884
-          FeeRate: 1.2315135367772556
-          Quantity: 3
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
@@ -2654,7 +2732,7 @@ components:
           LineVat: 1.4658129805029452
           OriginalFeeFixed: 9.301444243932576
           OriginalLineVat: 7.061401241503109
-          CancellationRequestedQuantity: 2
+          CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
@@ -2677,6 +2755,7 @@ components:
         Quantity:
           description: Number of items of the product in the shipment.
           format: int32
+          minimum: 0
           type: integer
       required:
       - ChannelProductNo
@@ -2687,6 +2766,7 @@ components:
       example:
         ChannelOrderNo: ChannelOrderNo
         TrackTraceUrl: TrackTraceUrl
+        ShippedFromCountryCode: ShippedFromCountryCode
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         TrackTraceNo: TrackTraceNo
         ReturnTrackTraceNo: ReturnTrackTraceNo
@@ -2694,13 +2774,13 @@ components:
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
         Lines:
         - OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -2709,7 +2789,7 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
@@ -2718,13 +2798,13 @@ components:
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - OrderLine:
-            UnitPriceInclVat: 4.145608029883936
+            UnitPriceInclVat: 0.4145608029883936
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 7.386281948385884
-            FeeRate: 1.2315135367772556
-            Quantity: 3
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
@@ -2733,7 +2813,7 @@ components:
             LineVat: 1.4658129805029452
             OriginalFeeFixed: 9.301444243932576
             OriginalLineVat: 7.061401241503109
-            CancellationRequestedQuantity: 2
+            CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
@@ -2785,6 +2865,12 @@ components:
           minLength: 0
           nullable: true
           type: string
+        ShippedFromCountryCode:
+          description: The code of the country from where the package is being shipped.
+          maxLength: 3
+          minLength: 0
+          nullable: true
+          type: string
       required:
       - ChannelOrderNo
       - Lines
@@ -2801,6 +2887,7 @@ components:
         Content:
         - ChannelOrderNo: ChannelOrderNo
           TrackTraceUrl: TrackTraceUrl
+          ShippedFromCountryCode: ShippedFromCountryCode
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           TrackTraceNo: TrackTraceNo
           ReturnTrackTraceNo: ReturnTrackTraceNo
@@ -2808,13 +2895,13 @@ components:
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2823,7 +2910,7 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
@@ -2832,13 +2919,13 @@ components:
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2847,7 +2934,7 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
@@ -2857,6 +2944,7 @@ components:
             ChannelProductNo: ChannelProductNo
         - ChannelOrderNo: ChannelOrderNo
           TrackTraceUrl: TrackTraceUrl
+          ShippedFromCountryCode: ShippedFromCountryCode
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           TrackTraceNo: TrackTraceNo
           ReturnTrackTraceNo: ReturnTrackTraceNo
@@ -2864,13 +2952,13 @@ components:
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2879,7 +2967,7 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
@@ -2888,13 +2976,13 @@ components:
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              UnitPriceInclVat: 4.145608029883936
+              UnitPriceInclVat: 0.4145608029883936
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 7.386281948385884
-              FeeRate: 1.2315135367772556
-              Quantity: 3
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
@@ -2903,7 +2991,7 @@ components:
               LineVat: 1.4658129805029452
               OriginalFeeFixed: 9.301444243932576
               OriginalLineVat: 7.061401241503109
-              CancellationRequestedQuantity: 2
+              CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
@@ -2957,5 +3045,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.8
+x-version: 2.9.9
 
