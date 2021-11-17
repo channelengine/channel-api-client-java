@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 
 group = 'com.channelengine.channel.apiclient'
-version = '2.9.9'
+version = '2.9.10'
 
 buildscript {
     repositories {

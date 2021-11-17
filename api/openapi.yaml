@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.9.9
+  version: 2.9.10
 servers:
 - url: http://dev.channelengine.local/api
 security:
@@ -581,7 +581,9 @@ paths:
       x-accepts: application/json
   /v2/orders/{merchantShipmentNo}/shippinglabel:
     get:
-      description: Downloads the shipping label for the shipment
+      description: Downloads the shipping label for the shipment. There may pass some
+        time between creating the shipment<br />and the availability of the label.
+        So '404 Not Found' might incidate it is not available yet.
       operationId: ShipmentShippingLabel
       parameters:
       - description: The unique shipment reference as used by the merchant.
@@ -3045,5 +3047,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.9
+x-version: 2.9.10
 
