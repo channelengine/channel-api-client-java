@@ -62,6 +62,7 @@ src/main/java/com/channelengine/channel/apiclient/model/ExtraDataType.java
 src/main/java/com/channelengine/channel/apiclient/model/Gender.java
 src/main/java/com/channelengine/channel/apiclient/model/MancoReason.java
 src/main/java/com/channelengine/channel/apiclient/model/ModelApiResponse.java
+src/main/java/com/channelengine/channel/apiclient/model/Operation.java
 src/main/java/com/channelengine/channel/apiclient/model/OrderStatusView.java
 src/main/java/com/channelengine/channel/apiclient/model/ReturnReason.java
 src/main/java/com/channelengine/channel/apiclient/model/ReturnStatus.java
