@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.9.12
+  version: 2.10.0
 servers:
 - url: http://dev.channelengine.local/api
 security:
@@ -3112,5 +3112,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.12
+x-version: 2.10.0
 
