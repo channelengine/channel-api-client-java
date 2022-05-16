@@ -24,30 +24,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets Condition
+ * Gets or Sets ChannelReturnStatus
  */
-@JsonAdapter(Condition.Adapter.class)
-public enum Condition {
+@JsonAdapter(ChannelReturnStatus.Adapter.class)
+public enum ChannelReturnStatus {
   
-  NEW("NEW"),
+  IN_PROGRESS("IN_PROGRESS"),
   
-  NEW_REFURBISHED("NEW_REFURBISHED"),
-  
-  USED_AS_NEW("USED_AS_NEW"),
-  
-  USED_GOOD("USED_GOOD"),
-  
-  USED_REASONABLE("USED_REASONABLE"),
-  
-  USED_MEDIOCRE("USED_MEDIOCRE"),
-  
-  UNKNOWN("UNKNOWN"),
-  
-  USED_VERY_GOOD("USED_VERY_GOOD");
+  RECEIVED("RECEIVED");
 
   private String value;
 
-  Condition(String value) {
+  ChannelReturnStatus(String value) {
     this.value = value;
   }
 
@@ -60,8 +48,8 @@ public enum Condition {
     return String.valueOf(value);
   }
 
-  public static Condition fromValue(String value) {
-    for (Condition b : Condition.values()) {
+  public static ChannelReturnStatus fromValue(String value) {
+    for (ChannelReturnStatus b : ChannelReturnStatus.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -69,16 +57,16 @@ public enum Condition {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<Condition> {
+  public static class Adapter extends TypeAdapter<ChannelReturnStatus> {
     @Override
-    public void write(final JsonWriter jsonWriter, final Condition enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final ChannelReturnStatus enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public Condition read(final JsonReader jsonReader) throws IOException {
+    public ChannelReturnStatus read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return Condition.fromValue(value);
+      return ChannelReturnStatus.fromValue(value);
     }
   }
 }

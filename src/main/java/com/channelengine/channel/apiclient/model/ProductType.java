@@ -24,30 +24,24 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets Condition
+ * Gets or Sets ProductType
  */
-@JsonAdapter(Condition.Adapter.class)
-public enum Condition {
+@JsonAdapter(ProductType.Adapter.class)
+public enum ProductType {
   
-  NEW("NEW"),
+  SINGLE("SINGLE"),
   
-  NEW_REFURBISHED("NEW_REFURBISHED"),
+  PARENT("PARENT"),
   
-  USED_AS_NEW("USED_AS_NEW"),
+  CHILD("CHILD"),
   
-  USED_GOOD("USED_GOOD"),
+  GRANDPARENT("GRANDPARENT"),
   
-  USED_REASONABLE("USED_REASONABLE"),
-  
-  USED_MEDIOCRE("USED_MEDIOCRE"),
-  
-  UNKNOWN("UNKNOWN"),
-  
-  USED_VERY_GOOD("USED_VERY_GOOD");
+  BUNDLE("BUNDLE");
 
   private String value;
 
-  Condition(String value) {
+  ProductType(String value) {
     this.value = value;
   }
 
@@ -60,8 +54,8 @@ public enum Condition {
     return String.valueOf(value);
   }
 
-  public static Condition fromValue(String value) {
-    for (Condition b : Condition.values()) {
+  public static ProductType fromValue(String value) {
+    for (ProductType b : ProductType.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -69,16 +63,16 @@ public enum Condition {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<Condition> {
+  public static class Adapter extends TypeAdapter<ProductType> {
     @Override
-    public void write(final JsonWriter jsonWriter, final Condition enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final ProductType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public Condition read(final JsonReader jsonReader) throws IOException {
+    public ProductType read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return Condition.fromValue(value);
+      return ProductType.fromValue(value);
     }
   }
 }

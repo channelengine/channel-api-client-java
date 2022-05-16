@@ -15,7 +15,7 @@ package com.channelengine.channel.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.channel.apiclient.model.ChannelOfferResponse;
+import com.channelengine.channel.apiclient.model.ChannelProductChangesResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -24,32 +24,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * CollectionOfChannelOfferResponse
+ * CollectionChangesOfChannelProductChangesResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CollectionOfChannelOfferResponse {
+public class CollectionChangesOfChannelProductChangesResponse {
   public static final String SERIALIZED_NAME_CONTENT = "Content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  private List<ChannelOfferResponse> content = null;
+  private ChannelProductChangesResponse content;
 
-  public static final String SERIALIZED_NAME_COUNT = "Count";
-  @SerializedName(SERIALIZED_NAME_COUNT)
-  private Integer count;
+  public static final String SERIALIZED_NAME_TO_BE_CREATED_TOTAL_COUNT = "ToBeCreatedTotalCount";
+  @SerializedName(SERIALIZED_NAME_TO_BE_CREATED_TOTAL_COUNT)
+  private Integer toBeCreatedTotalCount;
 
-  public static final String SERIALIZED_NAME_TOTAL_COUNT = "TotalCount";
-  @SerializedName(SERIALIZED_NAME_TOTAL_COUNT)
-  private Integer totalCount;
+  public static final String SERIALIZED_NAME_TO_BE_UPDATED_TOTAL_COUNT = "ToBeUpdatedTotalCount";
+  @SerializedName(SERIALIZED_NAME_TO_BE_UPDATED_TOTAL_COUNT)
+  private Integer toBeUpdatedTotalCount;
 
-  public static final String SERIALIZED_NAME_ITEMS_PER_PAGE = "ItemsPerPage";
-  @SerializedName(SERIALIZED_NAME_ITEMS_PER_PAGE)
-  private Integer itemsPerPage;
+  public static final String SERIALIZED_NAME_TO_BE_DELETED_TOTAL_COUNT = "ToBeDeletedTotalCount";
+  @SerializedName(SERIALIZED_NAME_TO_BE_DELETED_TOTAL_COUNT)
+  private Integer toBeDeletedTotalCount;
 
   public static final String SERIALIZED_NAME_STATUS_CODE = "StatusCode";
   @SerializedName(SERIALIZED_NAME_STATUS_CODE)
@@ -76,17 +75,9 @@ public class CollectionOfChannelOfferResponse {
   private Map<String, List<String>> validationErrors = null;
 
 
-  public CollectionOfChannelOfferResponse content(List<ChannelOfferResponse> content) {
+  public CollectionChangesOfChannelProductChangesResponse content(ChannelProductChangesResponse content) {
     
     this.content = content;
-    return this;
-  }
-
-  public CollectionOfChannelOfferResponse addContentItem(ChannelOfferResponse contentItem) {
-    if (this.content == null) {
-      this.content = new ArrayList<ChannelOfferResponse>();
-    }
-    this.content.add(contentItem);
     return this;
   }
 
@@ -97,86 +88,86 @@ public class CollectionOfChannelOfferResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<ChannelOfferResponse> getContent() {
+  public ChannelProductChangesResponse getContent() {
     return content;
   }
 
 
-  public void setContent(List<ChannelOfferResponse> content) {
+  public void setContent(ChannelProductChangesResponse content) {
     this.content = content;
   }
 
 
-  public CollectionOfChannelOfferResponse count(Integer count) {
+  public CollectionChangesOfChannelProductChangesResponse toBeCreatedTotalCount(Integer toBeCreatedTotalCount) {
     
-    this.count = count;
+    this.toBeCreatedTotalCount = toBeCreatedTotalCount;
     return this;
   }
 
    /**
-   * Get count
-   * @return count
+   * Get toBeCreatedTotalCount
+   * @return toBeCreatedTotalCount
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getCount() {
-    return count;
+  public Integer getToBeCreatedTotalCount() {
+    return toBeCreatedTotalCount;
   }
 
 
-  public void setCount(Integer count) {
-    this.count = count;
+  public void setToBeCreatedTotalCount(Integer toBeCreatedTotalCount) {
+    this.toBeCreatedTotalCount = toBeCreatedTotalCount;
   }
 
 
-  public CollectionOfChannelOfferResponse totalCount(Integer totalCount) {
+  public CollectionChangesOfChannelProductChangesResponse toBeUpdatedTotalCount(Integer toBeUpdatedTotalCount) {
     
-    this.totalCount = totalCount;
+    this.toBeUpdatedTotalCount = toBeUpdatedTotalCount;
     return this;
   }
 
    /**
-   * Get totalCount
-   * @return totalCount
+   * Get toBeUpdatedTotalCount
+   * @return toBeUpdatedTotalCount
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getTotalCount() {
-    return totalCount;
+  public Integer getToBeUpdatedTotalCount() {
+    return toBeUpdatedTotalCount;
   }
 
 
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
+  public void setToBeUpdatedTotalCount(Integer toBeUpdatedTotalCount) {
+    this.toBeUpdatedTotalCount = toBeUpdatedTotalCount;
   }
 
 
-  public CollectionOfChannelOfferResponse itemsPerPage(Integer itemsPerPage) {
+  public CollectionChangesOfChannelProductChangesResponse toBeDeletedTotalCount(Integer toBeDeletedTotalCount) {
     
-    this.itemsPerPage = itemsPerPage;
+    this.toBeDeletedTotalCount = toBeDeletedTotalCount;
     return this;
   }
 
    /**
-   * Get itemsPerPage
-   * @return itemsPerPage
+   * Get toBeDeletedTotalCount
+   * @return toBeDeletedTotalCount
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public Integer getItemsPerPage() {
-    return itemsPerPage;
+  public Integer getToBeDeletedTotalCount() {
+    return toBeDeletedTotalCount;
   }
 
 
-  public void setItemsPerPage(Integer itemsPerPage) {
-    this.itemsPerPage = itemsPerPage;
+  public void setToBeDeletedTotalCount(Integer toBeDeletedTotalCount) {
+    this.toBeDeletedTotalCount = toBeDeletedTotalCount;
   }
 
 
-  public CollectionOfChannelOfferResponse statusCode(Integer statusCode) {
+  public CollectionChangesOfChannelProductChangesResponse statusCode(Integer statusCode) {
     
     this.statusCode = statusCode;
     return this;
@@ -199,7 +190,7 @@ public class CollectionOfChannelOfferResponse {
   }
 
 
-  public CollectionOfChannelOfferResponse requestId(String requestId) {
+  public CollectionChangesOfChannelProductChangesResponse requestId(String requestId) {
     
     this.requestId = requestId;
     return this;
@@ -222,7 +213,7 @@ public class CollectionOfChannelOfferResponse {
   }
 
 
-  public CollectionOfChannelOfferResponse logId(String logId) {
+  public CollectionChangesOfChannelProductChangesResponse logId(String logId) {
     
     this.logId = logId;
     return this;
@@ -245,7 +236,7 @@ public class CollectionOfChannelOfferResponse {
   }
 
 
-  public CollectionOfChannelOfferResponse success(Boolean success) {
+  public CollectionChangesOfChannelProductChangesResponse success(Boolean success) {
     
     this.success = success;
     return this;
@@ -268,7 +259,7 @@ public class CollectionOfChannelOfferResponse {
   }
 
 
-  public CollectionOfChannelOfferResponse message(String message) {
+  public CollectionChangesOfChannelProductChangesResponse message(String message) {
     
     this.message = message;
     return this;
@@ -291,13 +282,13 @@ public class CollectionOfChannelOfferResponse {
   }
 
 
-  public CollectionOfChannelOfferResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionChangesOfChannelProductChangesResponse validationErrors(Map<String, List<String>> validationErrors) {
     
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public CollectionOfChannelOfferResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionChangesOfChannelProductChangesResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -330,17 +321,17 @@ public class CollectionOfChannelOfferResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CollectionOfChannelOfferResponse collectionOfChannelOfferResponse = (CollectionOfChannelOfferResponse) o;
-    return Objects.equals(this.content, collectionOfChannelOfferResponse.content) &&
-        Objects.equals(this.count, collectionOfChannelOfferResponse.count) &&
-        Objects.equals(this.totalCount, collectionOfChannelOfferResponse.totalCount) &&
-        Objects.equals(this.itemsPerPage, collectionOfChannelOfferResponse.itemsPerPage) &&
-        Objects.equals(this.statusCode, collectionOfChannelOfferResponse.statusCode) &&
-        Objects.equals(this.requestId, collectionOfChannelOfferResponse.requestId) &&
-        Objects.equals(this.logId, collectionOfChannelOfferResponse.logId) &&
-        Objects.equals(this.success, collectionOfChannelOfferResponse.success) &&
-        Objects.equals(this.message, collectionOfChannelOfferResponse.message) &&
-        Objects.equals(this.validationErrors, collectionOfChannelOfferResponse.validationErrors);
+    CollectionChangesOfChannelProductChangesResponse collectionChangesOfChannelProductChangesResponse = (CollectionChangesOfChannelProductChangesResponse) o;
+    return Objects.equals(this.content, collectionChangesOfChannelProductChangesResponse.content) &&
+        Objects.equals(this.toBeCreatedTotalCount, collectionChangesOfChannelProductChangesResponse.toBeCreatedTotalCount) &&
+        Objects.equals(this.toBeUpdatedTotalCount, collectionChangesOfChannelProductChangesResponse.toBeUpdatedTotalCount) &&
+        Objects.equals(this.toBeDeletedTotalCount, collectionChangesOfChannelProductChangesResponse.toBeDeletedTotalCount) &&
+        Objects.equals(this.statusCode, collectionChangesOfChannelProductChangesResponse.statusCode) &&
+        Objects.equals(this.requestId, collectionChangesOfChannelProductChangesResponse.requestId) &&
+        Objects.equals(this.logId, collectionChangesOfChannelProductChangesResponse.logId) &&
+        Objects.equals(this.success, collectionChangesOfChannelProductChangesResponse.success) &&
+        Objects.equals(this.message, collectionChangesOfChannelProductChangesResponse.message) &&
+        Objects.equals(this.validationErrors, collectionChangesOfChannelProductChangesResponse.validationErrors);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -349,7 +340,7 @@ public class CollectionOfChannelOfferResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, count, totalCount, itemsPerPage, statusCode, requestId, logId, success, message, validationErrors);
+    return Objects.hash(content, toBeCreatedTotalCount, toBeUpdatedTotalCount, toBeDeletedTotalCount, statusCode, requestId, logId, success, message, validationErrors);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -362,11 +353,11 @@ public class CollectionOfChannelOfferResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CollectionOfChannelOfferResponse {\n");
+    sb.append("class CollectionChangesOfChannelProductChangesResponse {\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
-    sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    itemsPerPage: ").append(toIndentedString(itemsPerPage)).append("\n");
+    sb.append("    toBeCreatedTotalCount: ").append(toIndentedString(toBeCreatedTotalCount)).append("\n");
+    sb.append("    toBeUpdatedTotalCount: ").append(toIndentedString(toBeUpdatedTotalCount)).append("\n");
+    sb.append("    toBeDeletedTotalCount: ").append(toIndentedString(toBeDeletedTotalCount)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
     sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
