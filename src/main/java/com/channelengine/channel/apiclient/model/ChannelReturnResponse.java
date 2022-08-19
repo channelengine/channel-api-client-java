@@ -27,7 +27,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.threeten.bp.OffsetDateTime;
 
@@ -87,6 +89,10 @@ public class ChannelReturnResponse {
   public static final String SERIALIZED_NAME_RETURN_DATE = "ReturnDate";
   @SerializedName(SERIALIZED_NAME_RETURN_DATE)
   private OffsetDateTime returnDate;
+
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
 
 
   public ChannelReturnResponse channelReturnNo(String channelReturnNo) {
@@ -395,6 +401,37 @@ public class ChannelReturnResponse {
   }
 
 
+  public ChannelReturnResponse extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public ChannelReturnResponse putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the return. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the return. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -416,7 +453,8 @@ public class ChannelReturnResponse {
         Objects.equals(this.merchantComment, channelReturnResponse.merchantComment) &&
         Objects.equals(this.refundInclVat, channelReturnResponse.refundInclVat) &&
         Objects.equals(this.refundExclVat, channelReturnResponse.refundExclVat) &&
-        Objects.equals(this.returnDate, channelReturnResponse.returnDate);
+        Objects.equals(this.returnDate, channelReturnResponse.returnDate) &&
+        Objects.equals(this.extraData, channelReturnResponse.extraData);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -425,7 +463,7 @@ public class ChannelReturnResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelReturnNo, channelOrderNo, merchantOrderNo, lines, createdAt, updatedAt, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat, returnDate);
+    return Objects.hash(channelReturnNo, channelOrderNo, merchantOrderNo, lines, createdAt, updatedAt, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat, returnDate, extraData);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -452,6 +490,7 @@ public class ChannelReturnResponse {
     sb.append("    refundInclVat: ").append(toIndentedString(refundInclVat)).append("\n");
     sb.append("    refundExclVat: ").append(toIndentedString(refundExclVat)).append("\n");
     sb.append("    returnDate: ").append(toIndentedString(returnDate)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

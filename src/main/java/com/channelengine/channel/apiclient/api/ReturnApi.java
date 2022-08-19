@@ -183,6 +183,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -193,7 +194,7 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetDeclaredByMerchantCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call returnGetDeclaredByMerchantCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -221,6 +222,10 @@ public class ReturnApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("toDate", toDate));
         }
 
+        if (isAcknowledged != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("isAcknowledged", isAcknowledged));
+        }
+
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
         }
@@ -244,10 +249,10 @@ public class ReturnApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call returnGetDeclaredByMerchantValidateBeforeCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call returnGetDeclaredByMerchantValidateBeforeCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = returnGetDeclaredByMerchantCall(statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetDeclaredByMerchantCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, _callback);
         return localVarCall;
 
     }
@@ -259,6 +264,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfChannelReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -268,8 +274,8 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public CollectionOfChannelReturnResponse returnGetDeclaredByMerchant(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        ApiResponse<CollectionOfChannelReturnResponse> localVarResp = returnGetDeclaredByMerchantWithHttpInfo(statuses, reasons, fromDate, toDate, page);
+    public CollectionOfChannelReturnResponse returnGetDeclaredByMerchant(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page) throws ApiException {
+        ApiResponse<CollectionOfChannelReturnResponse> localVarResp = returnGetDeclaredByMerchantWithHttpInfo(statuses, reasons, fromDate, toDate, isAcknowledged, page);
         return localVarResp.getData();
     }
 
@@ -280,6 +286,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfChannelReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -289,8 +296,8 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CollectionOfChannelReturnResponse> returnGetDeclaredByMerchantWithHttpInfo(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        okhttp3.Call localVarCall = returnGetDeclaredByMerchantValidateBeforeCall(statuses, reasons, fromDate, toDate, page, null);
+    public ApiResponse<CollectionOfChannelReturnResponse> returnGetDeclaredByMerchantWithHttpInfo(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page) throws ApiException {
+        okhttp3.Call localVarCall = returnGetDeclaredByMerchantValidateBeforeCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, null);
         Type localVarReturnType = new TypeToken<CollectionOfChannelReturnResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -302,6 +309,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -312,9 +320,9 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetDeclaredByMerchantAsync(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback<CollectionOfChannelReturnResponse> _callback) throws ApiException {
+    public okhttp3.Call returnGetDeclaredByMerchantAsync(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback<CollectionOfChannelReturnResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = returnGetDeclaredByMerchantValidateBeforeCall(statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetDeclaredByMerchantValidateBeforeCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, _callback);
         Type localVarReturnType = new TypeToken<CollectionOfChannelReturnResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

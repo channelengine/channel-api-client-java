@@ -56,7 +56,7 @@ import com.channelengine.channel.apiclient.auth.ApiKeyAuth;
 
 public class ApiClient {
 
-    private String basePath = "http://dev.channelengine.local/api";
+    private String basePath = "https://demo.channelengine.net/api";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -125,7 +125,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("OpenAPI-Generator/2.11.0/java");
+        setUserAgent("OpenAPI-Generator/2.12.0/java");
 
         authentications = new HashMap<String, Authentication>();
     }
@@ -142,7 +142,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g http://dev.channelengine.local/api
+     * @param basePath Base path of the URL (e.g https://demo.channelengine.net/api
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

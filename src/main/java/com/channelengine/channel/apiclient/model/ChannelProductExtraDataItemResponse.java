@@ -58,8 +58,8 @@ public class ChannelProductExtraDataItemResponse {
    * Name of the extra data field.
    * @return key
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Name of the extra data field.")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Name of the extra data field.")
 
   public String getKey() {
     return key;

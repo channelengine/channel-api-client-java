@@ -4,7 +4,7 @@ info:
   title: ChannelEngine Channel API
   version: 2.11.0
 servers:
-- url: http://dev.channelengine.local/api
+- url: https://demo.channelengine.net/api
 security:
 - apiKey: []
 paths:
@@ -465,6 +465,15 @@ paths:
             exclusive.
           format: date-time
           type: string
+        style: form
+      - description: Filters based on acknowledgements
+        explode: true
+        in: query
+        name: isAcknowledged
+        required: false
+        schema:
+          description: Filters based on acknowledgements
+          type: boolean
         style: form
       - description: The page to filter on. Starts at 1.
         explode: true
@@ -1530,7 +1539,6 @@ components:
           description: Name of the extra data field.
           maxLength: 100
           minLength: 0
-          nullable: true
           type: string
         Value:
           description: Value of the extra data field.
@@ -1541,6 +1549,8 @@ components:
         IsPublic:
           description: Add this field to the export of the product feed to the channel.
           type: boolean
+      required:
+      - Key
       type: object
     ChannelProductReferencesRequest:
       additionalProperties: false
@@ -1803,6 +1813,8 @@ components:
       additionalProperties: false
       example:
         Quantity: 0
+        ExtraData:
+          key: ExtraData
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
       properties:
@@ -1819,6 +1831,13 @@ components:
           format: int32
           minimum: 0
           type: integer
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the returnline. Each item must have an unqiue
+            key
+          nullable: true
+          type: object
       required:
       - Quantity
       type: object
@@ -1849,6 +1868,8 @@ components:
           ChannelProductNo: ChannelProductNo
         AcceptedQuantity: 0
         Quantity: 0
+        ExtraData:
+          key: ExtraData
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
       properties:
@@ -1880,6 +1901,13 @@ components:
           format: int32
           minimum: 0
           type: integer
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the returnline. Each item must have an unqiue
+            key
+          nullable: true
+          type: object
       required:
       - ChannelProductNo
       - Quantity
@@ -1892,6 +1920,8 @@ components:
         MerchantComment: MerchantComment
         RefundExclVat: 0.5962133916683182
         KeyIsMerchantProductNo: true
+        ExtraData:
+          key: ExtraData
         KeyIsMerchantOrderNo: true
         CustomerComment: CustomerComment
         ChannelReference: ChannelReference
@@ -1899,9 +1929,13 @@ components:
         Id: 6
         Lines:
         - Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         RefundInclVat: 0.14658129805029452
@@ -1966,6 +2000,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the return. Each item must have an unqiue key
+          nullable: true
+          type: object
       required:
       - ChannelReference
       - Lines
@@ -1978,6 +2018,8 @@ components:
         MerchantComment: MerchantComment
         RefundExclVat: 0.23021358869347652
         CreatedAt: 2000-01-23T04:56:07.000+00:00
+        ExtraData:
+          key: ExtraData
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
         CustomerComment: CustomerComment
         ChannelReturnNo: ChannelReturnNo
@@ -2008,6 +2050,8 @@ components:
             ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - RejectedQuantity: 6
@@ -2034,6 +2078,8 @@ components:
             ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         RefundInclVat: 0.5637376656633328
@@ -2094,6 +2140,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the return. Each item must have an unqiue key
+          nullable: true
+          type: object
       required:
       - ChannelOrderNo
       - ChannelReturnNo
@@ -2744,6 +2796,8 @@ components:
           MerchantComment: MerchantComment
           RefundExclVat: 0.23021358869347652
           CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ExtraData:
+            key: ExtraData
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
@@ -2774,6 +2828,8 @@ components:
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
@@ -2800,6 +2856,8 @@ components:
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           RefundInclVat: 0.5637376656633328
@@ -2808,6 +2866,8 @@ components:
           MerchantComment: MerchantComment
           RefundExclVat: 0.23021358869347652
           CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ExtraData:
+            key: ExtraData
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
@@ -2838,6 +2898,8 @@ components:
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
@@ -2864,6 +2926,8 @@ components:
               ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           RefundInclVat: 0.5637376656633328

@@ -23,6 +23,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -41,6 +44,10 @@ public class ChannelReturnLineRequest {
   public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
   @SerializedName(SERIALIZED_NAME_QUANTITY)
   private Integer quantity;
+
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
 
 
   public ChannelReturnLineRequest channelProductNo(String channelProductNo) {
@@ -113,6 +120,37 @@ public class ChannelReturnLineRequest {
   }
 
 
+  public ChannelReturnLineRequest extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public ChannelReturnLineRequest putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the returnline. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the returnline. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -124,7 +162,8 @@ public class ChannelReturnLineRequest {
     ChannelReturnLineRequest channelReturnLineRequest = (ChannelReturnLineRequest) o;
     return Objects.equals(this.channelProductNo, channelReturnLineRequest.channelProductNo) &&
         Objects.equals(this.merchantProductNo, channelReturnLineRequest.merchantProductNo) &&
-        Objects.equals(this.quantity, channelReturnLineRequest.quantity);
+        Objects.equals(this.quantity, channelReturnLineRequest.quantity) &&
+        Objects.equals(this.extraData, channelReturnLineRequest.extraData);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -133,7 +172,7 @@ public class ChannelReturnLineRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelProductNo, merchantProductNo, quantity);
+    return Objects.hash(channelProductNo, merchantProductNo, quantity, extraData);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -150,6 +189,7 @@ public class ChannelReturnLineRequest {
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }
